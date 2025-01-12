@@ -1,6 +1,6 @@
 import { startStandaloneServer } from '@apollo/server/standalone';
 
-import { server } from './server.js';
+import { server } from './app/server.js';
 
 const { PORT } = process.env;
 
