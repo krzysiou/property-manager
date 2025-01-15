@@ -1,21 +1,27 @@
 import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
 
-import {
-  typeDefs as BookSchema,
-  resolvers as BookResolvers,
-} from '../schemas/book.js';
-import {
-  typeDefs as LibrarySchema,
-  resolvers as LibraryResolvers,
-} from '../schemas/library.js';
+import type { Context } from './types.js';
 
-const getTypeDefs = () => [BookSchema, LibrarySchema];
+import { getConfig } from '../config/get-config.js';
+import { parseSchemas } from './parse-schemas.js';
+import { mountedSchemas } from './mounted-schemas.js';
 
-const getResolvers = () => [BookResolvers, LibraryResolvers];
+const config = getConfig();
 
-const server = new ApolloServer({
-  typeDefs: getTypeDefs(),
-  resolvers: getResolvers(),
+const { typeDefs, resolvers } = parseSchemas(mountedSchemas);
+
+const server = new ApolloServer<Context>({
+  typeDefs,
+  resolvers,
 });
 
-export { server };
+const startServer = async () =>
+  await startStandaloneServer(server, {
+    listen: { port: Number(config.port) },
+    context: async () => ({
+      config,
+    }),
+  });
+
+export { startServer };

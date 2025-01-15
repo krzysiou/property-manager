@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.11.3",
+    "axios": "^1.7.9",
     "graphql": "^16.10.0"
   },
   "devDependencies": {

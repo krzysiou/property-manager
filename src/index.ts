@@ -1,11 +1,5 @@
-import { startStandaloneServer } from '@apollo/server/standalone';
+import { startServer } from './app/server.js';
 
-import { server } from './app/server.js';
+const { url } = await startServer();
 
-const { PORT } = process.env;
-
-const { url } = await startStandaloneServer(server, {
-  listen: { port: Number(PORT) },
-});
-
-console.log(`Listening at: ${url}`);
+console.log(`Listening on: ${url}`);
