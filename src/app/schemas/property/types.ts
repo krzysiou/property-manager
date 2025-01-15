@@ -1,4 +1,56 @@
-import type { State } from '../types';
+type Sort = 'asc' | 'desc';
+
+type State =
+  | 'AL'
+  | 'AK'
+  | 'AZ'
+  | 'AR'
+  | 'CA'
+  | 'CO'
+  | 'CT'
+  | 'DE'
+  | 'FL'
+  | 'GA'
+  | 'HI'
+  | 'ID'
+  | 'IL'
+  | 'IN'
+  | 'IA'
+  | 'KS'
+  | 'KY'
+  | 'LA'
+  | 'ME'
+  | 'MD'
+  | 'MA'
+  | 'MI'
+  | 'MN'
+  | 'MS'
+  | 'MO'
+  | 'MT'
+  | 'NE'
+  | 'NV'
+  | 'NH'
+  | 'NJ'
+  | 'NM'
+  | 'NY'
+  | 'NC'
+  | 'ND'
+  | 'OH'
+  | 'OK'
+  | 'OR'
+  | 'PA'
+  | 'RI'
+  | 'SC'
+  | 'SD'
+  | 'TN'
+  | 'TX'
+  | 'UT'
+  | 'VT'
+  | 'VA'
+  | 'WA'
+  | 'WV'
+  | 'WI'
+  | 'WY';
 
 type WeatherData = {
   observation_time: string;
@@ -25,10 +77,9 @@ type Property = {
   state: State;
   zipCode: string;
   weatherData: WeatherData;
-  lat: number;
-  long: number;
+  lat: string;
+  lon: string;
   creationDate: string;
-  updateDate: string;
 };
 
-export type { Property, WeatherData };
+export type { Property, WeatherData, Sort, State };

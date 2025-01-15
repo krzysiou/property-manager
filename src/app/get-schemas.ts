@@ -1,6 +1,10 @@
 import type { Schema } from './types';
 
-const parseSchemas = (schemas: Schema[]) => {
+import * as schemasModule from './schemas/index.js';
+
+const getSchemas = () => {
+  const schemas: Schema[] = Object.values(schemasModule);
+
   let typeDefsArray = [];
   let resolversArray = [];
 
@@ -9,7 +13,10 @@ const parseSchemas = (schemas: Schema[]) => {
     resolversArray = [...resolversArray, resolvers];
   });
 
-  return { typeDefs: typeDefsArray, resolvers: resolversArray };
+  return {
+    typeDefs: typeDefsArray,
+    resolvers: resolversArray,
+  };
 };
 
-export { parseSchemas };
+export { getSchemas };

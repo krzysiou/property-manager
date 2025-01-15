@@ -5,7 +5,7 @@ type Context = {
   config: Config;
 };
 
-type ResolverFunction<T = unknown, M = unknown> = (
+type Resolver<T = unknown, M = unknown> = (
   parent: object,
   args: T,
   contextValue: Context,
@@ -13,9 +13,9 @@ type ResolverFunction<T = unknown, M = unknown> = (
 ) => M;
 
 type Resolvers = {
-  Query?: Record<string, ResolverFunction>;
-  Mutation?: Record<string, ResolverFunction>;
-  Subscription?: Record<string, ResolverFunction>;
+  Query?: Record<string, Resolver>;
+  Mutation?: Record<string, Resolver>;
+  Subscription?: Record<string, Resolver>;
 };
 
 type Schema = {
@@ -23,4 +23,4 @@ type Schema = {
   resolvers?: Resolvers;
 };
 
-export type { Schema, Resolvers, Context, ResolverFunction };
+export type { Schema, Resolvers, Context, Resolver };

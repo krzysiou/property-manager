@@ -4,16 +4,17 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import type { Context } from './types.js';
 
 import { getConfig } from '../config/get-config.js';
-import { parseSchemas } from './parse-schemas.js';
-import { mountedSchemas } from './mounted-schemas.js';
+import { getSchemas } from './get-schemas.js';
+import { formatError } from './format-error.js';
 
 const config = getConfig();
 
-const { typeDefs, resolvers } = parseSchemas(mountedSchemas);
+const { typeDefs, resolvers } = getSchemas();
 
 const server = new ApolloServer<Context>({
   typeDefs,
   resolvers,
+  formatError,
 });
 
 const startServer = async () =>

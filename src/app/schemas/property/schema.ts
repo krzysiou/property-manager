@@ -1,9 +1,69 @@
 import type { Resolvers } from '../../types.js';
 
+import { addProperty } from './resolvers/add-property.ts.js';
+import { deleteProperty } from './resolvers/delete-property.js';
 import { getProperties } from './resolvers/get-properties.js';
 import { getProperty } from './resolvers/get-property.js';
 
 const typeDefs = `#graphql
+  enum Sort {
+    asc
+    desc
+  }
+  
+  enum State {
+    AL 
+    AK
+    AZ
+    AR
+    CA
+    CO
+    CT
+    DE
+    FL
+    GA
+    HI
+    ID
+    IL
+    IN
+    IA
+    KS
+    KY
+    LA
+    ME
+    MD
+    MA
+    MI
+    MN
+    MS
+    MO
+    MT
+    NE
+    NV
+    NH
+    NJ
+    NM
+    NY
+    NC
+    ND
+    OH
+    OK
+    OR
+    PA
+    RI
+    SC
+    SD
+    TN
+    TX
+    UT
+    VT
+    VA
+    WA
+    WV
+    WI
+    WY
+  }
+
   type WeatherData {
     observation_time: String!
     temperature: Int!
@@ -29,10 +89,9 @@ const typeDefs = `#graphql
     state: State!
     zipCode: String!
     weatherData: WeatherData!
-    lat: Float!
-    long: Float!
+    lat: String!
+    lon: String!
     creationDate: String!
-    updateDate: String!
   }
 
   type Query {
@@ -50,6 +109,10 @@ const resolvers: Resolvers = {
   Query: {
     getProperties,
     getProperty,
+  },
+  Mutation: {
+    addProperty,
+    deleteProperty,
   },
 };
 

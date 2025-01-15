@@ -1,8 +1,9 @@
-import type { ResolverFunction } from '../../../types.js';
-import type { Sort, State } from '../../types.js';
-import type { Property } from '../types.js';
+import type { Resolver } from '../../../types.js';
+import type { Property, Sort, State } from '../types.js';
 
 import { database } from '../../../../database/database.js';
+import { argsSchema } from '../validation/get-properties.schema.js';
+import { validateArgs } from '../../../../core/validate-args/validate-args.js';
 
 type GetPropertiesArgs = {
   city: string;
@@ -11,10 +12,11 @@ type GetPropertiesArgs = {
   sort: Sort;
 };
 
-const getProperties: ResolverFunction<GetPropertiesArgs, Property[]> = (
-  _,
-  { city, zipCode, state, sort }
-) => {
+const getProperties: Resolver<GetPropertiesArgs, Property[]> = (_, args) => {
+  validateArgs(args, argsSchema);
+
+  const { city, zipCode, state, sort } = args;
+
   let filteredProperties = database;
 
   if (city) {
