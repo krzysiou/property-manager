@@ -1,6 +1,6 @@
 import type { Resolvers } from '../../types.js';
 
-import { addProperty } from './resolvers/add-property.ts.js';
+import { addProperty } from './resolvers/add-property.js';
 import { deleteProperty } from './resolvers/delete-property.js';
 import { getProperties } from './resolvers/get-properties.js';
 import { getProperty } from './resolvers/get-property.js';
@@ -66,20 +66,20 @@ const typeDefs = `#graphql
 
   type WeatherData {
     observation_time: String!
-    temperature: Int!
+    temperature: Float!
     weather_code: Int!
     weather_icons: [String!]!
     weather_descriptions: [String!]!
-    wind_speed: Int!
-    wind_degree: Int!
+    wind_speed: Float!
+    wind_degree: Float!
     wind_dir: String!
-    pressure: Int!
-    precip: Int!
-    humidity: Int!
-    cloudcover: Int!
-    feelslike: Int!
-    uv_index: Int!
-    visibility: Int!
+    pressure: Float!
+    precip: Float!
+    humidity: Float!
+    cloudcover: Float!
+    feelslike: Float!
+    uv_index: Float!
+    visibility: Float!
   }
   
   type Property {

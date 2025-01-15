@@ -1,9 +1,14 @@
+import Joi from 'joi';
+
 import type { Resolver } from '../../../types.js';
 import type { Property } from '../types.js';
 
 import { database } from '../../../../database/database.js';
-import { argsSchema } from '../validation/get-property.schema.js';
-import { validateArgs } from '../../../../core/validate-args/validate-args.js';
+import { validateArgs } from '../../../../core/validation/validate-args.js';
+
+const argsSchema = Joi.object({
+  id: Joi.string().uuid().required(),
+});
 
 type GetPropertyArgs = {
   id: string;

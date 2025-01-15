@@ -1,9 +1,19 @@
+import Joi from 'joi';
+
 import type { Resolver } from '../../../types.js';
 import type { Property, Sort, State } from '../types.js';
 
 import { database } from '../../../../database/database.js';
-import { argsSchema } from '../validation/get-properties.schema.js';
-import { validateArgs } from '../../../../core/validate-args/validate-args.js';
+import { validateArgs } from '../../../../core/validation/validate-args.js';
+
+const argsSchema = Joi.object({
+  city: Joi.string().min(3).max(20),
+  state: Joi.string().length(2),
+  zipCode: Joi.string()
+    .length(5)
+    .regex(/^[0-9]+$/),
+  sort: Joi.string().valid('asc', 'desc'),
+});
 
 type GetPropertiesArgs = {
   city: string;
