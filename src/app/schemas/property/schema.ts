@@ -26,7 +26,7 @@ const typeDefs = `#graphql
     id: ID!
     city: String!
     street: String!
-    state: String!
+    state: State!
     zipCode: String!
     weatherData: WeatherData!
     lat: Float!
@@ -36,12 +36,12 @@ const typeDefs = `#graphql
   }
 
   type Query {
-    getProperties(city: String, zipCode: String, state: String, sort: Sort): [Property!]!
+    getProperties(city: String, zipCode: String, state: State, sort: Sort): [Property!]!
     getProperty(id: ID!): Property
   }
 
   type Mutation {
-    addProperty(city: String!, street: String!, state: String!, zipCode: String!): Property!
+    addProperty(city: String!, street: String!, state: State!, zipCode: String!): Property!
     deleteProperty(id: ID!): Boolean!
   }
 `;
