@@ -1,1 +1,1 @@
-export { default as PropertyModule } from './property/index.js';
+export { default as DefaultPropertyModule } from './property/index.js';

@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "node --env-file=.env --import=tsx --watch ./src/index.ts",
     "build": "npm run codegen && tsc",
-    "start": "npm run build && node --env-file=.env ./dist/index.js",
+    "start": "node --env-file=.env ./dist/index.js",
     "codegen": "graphql-codegen --config codegen.ts",
     "clean": "rm -rf dist",
     "clean:codegen": "find src -type f -name \"types.codegen.ts\" -exec rm -f {} \\;",

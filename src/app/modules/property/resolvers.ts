@@ -12,10 +12,13 @@ import {
   getPropertySchema,
 } from '../../../core/validation/property-schemas.js';
 
-const getProperties: PropertyModule.QueryResolvers['getProperties'] = (
-  _,
-  args
-) => {
+type Resolvers = PropertyModule.Resolvers;
+type GetProperties = PropertyModule.QueryResolvers['getProperties'];
+type GetProperty = PropertyModule.QueryResolvers['getProperty'];
+type AddProperty = PropertyModule.MutationResolvers['addProperty'];
+type DeleteProperty = PropertyModule.MutationResolvers['deleteProperty'];
+
+const getProperties: GetProperties = (_, args) => {
   validateArgs(args, getPropertiesSchema);
 
   const properties = handleGetPropertiesAction(args);
@@ -23,7 +26,7 @@ const getProperties: PropertyModule.QueryResolvers['getProperties'] = (
   return properties;
 };
 
-const getProperty: PropertyModule.QueryResolvers['getProperty'] = (_, args) => {
+const getProperty: GetProperty = (_, args) => {
   validateArgs(args, getPropertySchema);
 
   const property = handleGetPropertyAction(args);
@@ -31,10 +34,7 @@ const getProperty: PropertyModule.QueryResolvers['getProperty'] = (_, args) => {
   return property;
 };
 
-const addProperty: PropertyModule.MutationResolvers['addProperty'] = (
-  _,
-  args
-) => {
+const addProperty: AddProperty = (_, args) => {
   validateArgs(args, addPropertySchema);
 
   const property = handleAddPropertyAction(args);
@@ -42,10 +42,7 @@ const addProperty: PropertyModule.MutationResolvers['addProperty'] = (
   return property;
 };
 
-const deleteProperty: PropertyModule.MutationResolvers['deleteProperty'] = (
-  _,
-  args
-) => {
+const deleteProperty: DeleteProperty = (_, args) => {
   validateArgs(args, deletePropertySchema);
 
   const hasSucceded = handleDeletePropertyAction(args);
@@ -53,7 +50,7 @@ const deleteProperty: PropertyModule.MutationResolvers['deleteProperty'] = (
   return hasSucceded;
 };
 
-const resolvers: PropertyModule.Resolvers = {
+const resolvers: Resolvers = {
   Query: {
     getProperties,
     getProperty,

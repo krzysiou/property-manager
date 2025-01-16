@@ -1,4 +1,5 @@
 import { GraphQLError } from 'graphql';
+import { ApolloServerErrorCode } from '@apollo/server/errors';
 
 import type Joi from 'joi';
 
@@ -7,7 +8,7 @@ const validateArgs = (args: unknown, validationSchema: Joi.ObjectSchema) => {
 
   if (error) {
     throw new GraphQLError(error.message, {
-      extensions: { code: 'BAD_USER_INPUT' },
+      extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT },
     });
   }
 };

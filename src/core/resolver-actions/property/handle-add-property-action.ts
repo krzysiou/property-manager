@@ -1,9 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
-import type {
-  MutationAddPropertyArgs,
-  Property,
-} from '../../../app/modules/types.codegen';
+import type { MutationAddPropertyArgs } from '../../../app/modules/types.codegen';
+import type { PropertyModule } from '../../../app/modules/property/types.codegen.js';
 
 import {
   database,
@@ -20,7 +18,7 @@ const handleAddPropertyAction = (args: MutationAddPropertyArgs) => {
 
   const creationDate = new Date(Date.now()).toISOString();
 
-  const property: Property = {
+  const property: PropertyModule.Property = {
     id: uuid(),
     city,
     street,
