@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
-import type { MutationAddPropertyArgs } from '../../../app/modules/types.codegen';
-import type { PropertyModule } from '../../../app/modules/property/types.codegen.js';
+import type { MutationAddPropertyArgs } from '../../../app/schemas/types.codegen';
+import type { PropertyModule } from '../../../app/schemas/property/types.codegen.js';
 
 import { createDatabaseProperty } from '../../database/property/create-database-property.js';
 import { getWeatherApiMockResponse } from '../../fetching/mock-api-response.js';

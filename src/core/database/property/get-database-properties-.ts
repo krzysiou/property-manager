@@ -1,4 +1,4 @@
-import type { PropertyModule } from '../../../app/modules/property/types.codegen.js';
+import type { PropertyModule } from '../../../app/schemas/property/types.codegen.js';
 
 import { dbClient } from '../db-client.js';
 

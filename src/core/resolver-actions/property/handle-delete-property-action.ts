@@ -1,4 +1,4 @@
-import type { MutationDeletePropertyArgs } from '../../../app/modules/types.codegen.js';
+import type { MutationDeletePropertyArgs } from '../../../app/schemas/types.codegen.js';
 
 import { deleteDatabaseProperty } from '../../database/property/delete-database-property.ts.js';
 

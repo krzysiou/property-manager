@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import { GraphQLError } from 'graphql';
 import { ApolloServerErrorCode } from '@apollo/server/errors';
 
-import type { PropertyModule } from '../../../app/modules/property/types.codegen';
+import type { PropertyModule } from '../../../app/schemas/property/types.codegen';
 
 import { dbClient } from '../db-client.js';
 

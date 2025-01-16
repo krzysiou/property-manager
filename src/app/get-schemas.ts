@@ -1,19 +1,19 @@
-import type { Resolvers } from './modules/types.codegen.js';
+import type { Resolvers } from './schemas/types.codegen.js';
 
-import * as Modules from './modules/index.js';
+import * as Schemas from './schemas/index.js';
 
-type Module = {
+type Schema = {
   typeDefs: string;
   resolvers: Resolvers;
 };
 
-const getModules = () => {
-  const modules: Module[] = Object.values(Modules);
+const getSchemas = () => {
+  const schemas: Schema[] = Object.values(Schemas);
 
   let typeDefsArray: string[] = [];
   let resolversArray: Resolvers[] = [];
 
-  modules.forEach(({ typeDefs, resolvers }) => {
+  schemas.forEach(({ typeDefs, resolvers }) => {
     typeDefsArray = [...typeDefsArray, typeDefs];
     resolversArray = [...resolversArray, resolvers];
   });
@@ -24,4 +24,4 @@ const getModules = () => {
   };
 };
 
-export { getModules };
+export { getSchemas };

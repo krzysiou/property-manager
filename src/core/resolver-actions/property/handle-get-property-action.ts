@@ -1,4 +1,4 @@
-import type { QueryGetPropertyArgs } from '../../../app/modules/types.codegen.js';
+import type { QueryGetPropertyArgs } from '../../../app/schemas/types.codegen.js';
 
 import { getDatabaseProperties } from '../../database/property/get-database-properties-.js';
 

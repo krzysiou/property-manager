@@ -4,7 +4,7 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import type { Config } from '../config/types.js';
 
 import { getConfig } from '../config/get-config.js';
-import { getModules } from './get-modules.js';
+import { getSchemas } from './get-schemas.js';
 import { formatError } from './format-error.js';
 
 type Context = {
@@ -13,7 +13,7 @@ type Context = {
 
 const config = getConfig();
 
-const { typeDefs, resolvers } = getModules();
+const { typeDefs, resolvers } = getSchemas();
 
 const server = new ApolloServer<Context>({
   typeDefs,
