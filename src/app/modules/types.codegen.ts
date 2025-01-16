@@ -140,18 +140,16 @@ export type WeatherData = {
   cloudcover: Scalars['Float']['output'];
   feelslike: Scalars['Float']['output'];
   humidity: Scalars['Float']['output'];
-  observation_time: Scalars['String']['output'];
+  observationTime: Scalars['String']['output'];
   precip: Scalars['Float']['output'];
   pressure: Scalars['Float']['output'];
   temperature: Scalars['Float']['output'];
-  uv_index: Scalars['Float']['output'];
+  uvIndex: Scalars['Float']['output'];
   visibility: Scalars['Float']['output'];
-  weather_code: Scalars['Int']['output'];
-  weather_descriptions: Array<Scalars['String']['output']>;
-  weather_icons: Array<Scalars['String']['output']>;
-  wind_degree: Scalars['Float']['output'];
-  wind_dir: Scalars['String']['output'];
-  wind_speed: Scalars['Float']['output'];
+  weatherCode: Scalars['Int']['output'];
+  windDegree: Scalars['Float']['output'];
+  windDir: Scalars['String']['output'];
+  windSpeed: Scalars['Float']['output'];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -357,30 +355,16 @@ export type WeatherDataResolvers<
   cloudcover?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   feelslike?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   humidity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  observation_time?: Resolver<
-    ResolversTypes['String'],
-    ParentType,
-    ContextType
-  >;
+  observationTime?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   precip?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   pressure?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   temperature?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  uv_index?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  uvIndex?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   visibility?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  weather_code?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  weather_descriptions?: Resolver<
-    Array<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
-  weather_icons?: Resolver<
-    Array<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
-  wind_degree?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  wind_dir?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  wind_speed?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  weatherCode?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  windDegree?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  windDir?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  windSpeed?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

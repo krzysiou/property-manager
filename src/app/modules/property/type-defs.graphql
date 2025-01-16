@@ -57,20 +57,18 @@ enum State {
 }
 
 type WeatherData {
-  observation_time: String!
+  observationTime: String!
   temperature: Float!
-  weather_code: Int!
-  weather_icons: [String!]!
-  weather_descriptions: [String!]!
-  wind_speed: Float!
-  wind_degree: Float!
-  wind_dir: String!
+  weatherCode: Int!
+  windSpeed: Float!
+  windDegree: Float!
+  windDir: String!
   pressure: Float!
   precip: Float!
   humidity: Float!
   cloudcover: Float!
   feelslike: Float!
-  uv_index: Float!
+  uvIndex: Float!
   visibility: Float!
 }
 

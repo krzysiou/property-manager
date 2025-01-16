@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const addPropertySchema = Joi.object({
   city: Joi.string().min(3).max(20).required(),
-  street: Joi.string().alphanum().min(3).max(20).required(),
+  street: Joi.string().min(3).max(20).required(),
   state: Joi.string().length(2).required(),
   zipCode: Joi.string()
     .length(5)

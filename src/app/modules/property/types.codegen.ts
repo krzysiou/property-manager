@@ -5,20 +5,18 @@ import * as gm from 'graphql-modules';
 export namespace PropertyModule {
   interface DefinedFields {
     WeatherData:
-      | 'observation_time'
+      | 'observationTime'
       | 'temperature'
-      | 'weather_code'
-      | 'weather_icons'
-      | 'weather_descriptions'
-      | 'wind_speed'
-      | 'wind_degree'
-      | 'wind_dir'
+      | 'weatherCode'
+      | 'windSpeed'
+      | 'windDegree'
+      | 'windDir'
       | 'pressure'
       | 'precip'
       | 'humidity'
       | 'cloudcover'
       | 'feelslike'
-      | 'uv_index'
+      | 'uvIndex'
       | 'visibility';
     Property:
       | 'id'
@@ -129,20 +127,18 @@ export namespace PropertyModule {
     };
     WeatherData?: {
       '*'?: gm.Middleware[];
-      observation_time?: gm.Middleware[];
+      observationTime?: gm.Middleware[];
       temperature?: gm.Middleware[];
-      weather_code?: gm.Middleware[];
-      weather_icons?: gm.Middleware[];
-      weather_descriptions?: gm.Middleware[];
-      wind_speed?: gm.Middleware[];
-      wind_degree?: gm.Middleware[];
-      wind_dir?: gm.Middleware[];
+      weatherCode?: gm.Middleware[];
+      windSpeed?: gm.Middleware[];
+      windDegree?: gm.Middleware[];
+      windDir?: gm.Middleware[];
       pressure?: gm.Middleware[];
       precip?: gm.Middleware[];
       humidity?: gm.Middleware[];
       cloudcover?: gm.Middleware[];
       feelslike?: gm.Middleware[];
-      uv_index?: gm.Middleware[];
+      uvIndex?: gm.Middleware[];
       visibility?: gm.Middleware[];
     };
     Property?: {

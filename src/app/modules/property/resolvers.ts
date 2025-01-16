@@ -18,34 +18,34 @@ type GetProperty = PropertyModule.QueryResolvers['getProperty'];
 type AddProperty = PropertyModule.MutationResolvers['addProperty'];
 type DeleteProperty = PropertyModule.MutationResolvers['deleteProperty'];
 
-const getProperties: GetProperties = (_, args) => {
+const getProperties: GetProperties = async (_, args) => {
   validateArgs(args, getPropertiesSchema);
 
-  const properties = handleGetPropertiesAction(args);
+  const properties = await handleGetPropertiesAction(args);
 
   return properties;
 };
 
-const getProperty: GetProperty = (_, args) => {
+const getProperty: GetProperty = async (_, args) => {
   validateArgs(args, getPropertySchema);
 
-  const property = handleGetPropertyAction(args);
+  const property = await handleGetPropertyAction(args);
 
   return property;
 };
 
-const addProperty: AddProperty = (_, args) => {
+const addProperty: AddProperty = async (_, args) => {
   validateArgs(args, addPropertySchema);
 
-  const property = handleAddPropertyAction(args);
+  const property = await handleAddPropertyAction(args);
 
   return property;
 };
 
-const deleteProperty: DeleteProperty = (_, args) => {
+const deleteProperty: DeleteProperty = async (_, args) => {
   validateArgs(args, deletePropertySchema);
 
-  const hasSucceded = handleDeletePropertyAction(args);
+  const hasSucceded = await handleDeletePropertyAction(args);
 
   return hasSucceded;
 };
