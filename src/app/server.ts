@@ -1,15 +1,19 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 
-import type { Context } from './types.js';
+import type { Config } from '../config/types.js';
 
 import { getConfig } from '../config/get-config.js';
-import { getSchemas } from './get-schemas.js';
+import { getModules } from './get-modules.js';
 import { formatError } from './format-error.js';
+
+type Context = {
+  config: Config;
+};
 
 const config = getConfig();
 
-const { typeDefs, resolvers } = getSchemas();
+const { typeDefs, resolvers } = getModules();
 
 const server = new ApolloServer<Context>({
   typeDefs,
@@ -17,12 +21,12 @@ const server = new ApolloServer<Context>({
   formatError,
 });
 
-const startServer = async () =>
+const startServer = async (port: string) =>
   await startStandaloneServer(server, {
-    listen: { port: Number(config.port) },
+    listen: { port: Number(port) },
     context: async () => ({
       config,
     }),
   });
 
-export { startServer };
+export { startServer, type Context };

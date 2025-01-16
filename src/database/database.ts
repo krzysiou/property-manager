@@ -1,4 +1,4 @@
-import type { Property } from '../app/schemas/property/types';
+import type { PropertyModule } from '../app/modules/property/types.codegen';
 
 const getWeatherApiMockResponse = () => ({
   request: {
@@ -39,7 +39,7 @@ const getWeatherApiMockResponse = () => ({
   },
 });
 
-const database: Property[] = [
+const database: PropertyModule.Property[] = [
   {
     id: 'd5c7a1bb-3a74-4d57-84a5-91f7e77a3d3b',
     city: 'Fountain Hills',

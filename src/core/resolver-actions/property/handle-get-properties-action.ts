@@ -1,30 +1,8 @@
-import Joi from 'joi';
+import type { QueryGetPropertiesArgs } from '../../../app/modules/types.codegen.js';
 
-import type { Resolver } from '../../../types.js';
-import type { Property, Sort, State } from '../types.js';
+import { database } from '../../../database/database.js';
 
-import { database } from '../../../../database/database.js';
-import { validateArgs } from '../../../../core/validation/validate-args.js';
-
-const argsSchema = Joi.object({
-  city: Joi.string().min(3).max(20),
-  state: Joi.string().length(2),
-  zipCode: Joi.string()
-    .length(5)
-    .regex(/^[0-9]+$/),
-  sort: Joi.string().valid('asc', 'desc'),
-});
-
-type GetPropertiesArgs = {
-  city: string;
-  zipCode: string;
-  state: State;
-  sort: Sort;
-};
-
-const getProperties: Resolver<GetPropertiesArgs, Property[]> = (_, args) => {
-  validateArgs(args, argsSchema);
-
+const handleGetPropertiesAction = (args: QueryGetPropertiesArgs) => {
   const { city, zipCode, state, sort } = args;
 
   let filteredProperties = database;
@@ -58,4 +36,4 @@ const getProperties: Resolver<GetPropertiesArgs, Property[]> = (_, args) => {
   return filteredProperties;
 };
 
-export { getProperties };
+export { handleGetPropertiesAction };

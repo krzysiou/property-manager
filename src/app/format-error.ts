@@ -6,7 +6,7 @@ const formatError = (formattedError: GraphQLFormattedError) => {
     extensions: { code },
   } = formattedError;
 
-  return { code, message };
+  return { message, code };
 };
 
 export { formatError };
