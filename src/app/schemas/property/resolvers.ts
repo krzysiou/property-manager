@@ -34,10 +34,10 @@ const getProperty: GetProperty = async (_, args) => {
   return property;
 };
 
-const addProperty: AddProperty = async (_, args) => {
+const addProperty: AddProperty = async (_, args, context) => {
   validateArgs(args, addPropertySchema);
 
-  const property = await handleAddPropertyAction(args);
+  const property = await handleAddPropertyAction(args, context);
 
   return property;
 };
