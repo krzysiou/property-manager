@@ -16,9 +16,15 @@ const logger = loggerAdapter();
 const errorBroker = errorBrokerAdapter();
 const fetcher = fetcherAdapter({ logger, errorBroker });
 const database = databaseAdapter({ logger, errorBroker });
-const validate = validationService({ logger, errorBroker });
+const validate = validationService();
 const loadFile = fileLoadingService({ logger, errorBroker });
-const weather = WeatherAdapter({ config, fetcher, validate });
+const weather = WeatherAdapter({
+  config,
+  logger,
+  errorBroker,
+  fetcher,
+  validate,
+});
 
 const deps: Deps = {
   config,

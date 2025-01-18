@@ -14,11 +14,7 @@ type GetPropertyActionService = (deps: Deps) => GetPropertyAction;
 
 const getPropertyActionService: GetPropertyActionService = ({ database }) => {
   return async (args) => {
-    const { id } = args;
-
-    const properties = await database.property.getProperties();
-
-    const property = properties.find((property) => property.id === id);
+    const property = await database.property.getProperty(args);
 
     return property;
   };

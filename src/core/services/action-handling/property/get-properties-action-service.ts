@@ -18,31 +18,7 @@ const getPropertiesActionService: GetPropertiesActionService = ({
   database,
 }) => {
   return async (args) => {
-    const { city, zipCode, state, sort, limit, offset } = args;
-
-    let properties = await database.property.getProperties(limit, offset);
-
-    if (city) {
-      properties = properties.filter((prop) => prop.city === city);
-    }
-
-    if (zipCode) {
-      properties = properties.filter((prop) => prop.zipCode === zipCode);
-    }
-
-    if (state) {
-      properties = properties.filter((prop) => prop.state === state);
-    }
-
-    if (sort) {
-      properties = properties.sort((a, b) =>
-        sort === 'desc'
-          ? new Date(b.creationDate).getTime() -
-            new Date(a.creationDate).getTime()
-          : new Date(a.creationDate).getTime() -
-            new Date(b.creationDate).getTime()
-      );
-    }
+    const properties = await database.property.getProperties(args);
 
     return properties;
   };

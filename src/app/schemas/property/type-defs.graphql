@@ -84,8 +84,18 @@ type Property {
   creationDate: String!
 }
 
+type Metadata {
+  offset: Int!
+  limit: Int!
+}
+
+type PropertiesWithMetadata {
+  properties: [Property!]!
+  metadata: Metadata!
+}
+
 type Query {
-  getProperties(city: String, zipCode: String, state: State, sort: Sort, limit: Int, offset: Int): [Property!]!
+  getProperties(city: String, zipCode: String, state: State, sort: Sort, limit: Int, offset: Int): PropertiesWithMetadata!
   getProperty(id: ID!): Property
 }
 

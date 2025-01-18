@@ -8,10 +8,10 @@ import { getPropertiesActionService } from '../../../../core/services/action-han
 type GetProperties = PropertyModule.QueryResolvers['getProperties'];
 
 const initGetProperties = (deps: Deps): GetProperties => {
-  const { validate, database } = deps;
+  const { logger, errorBroker, validate, database } = deps;
 
   const argsSchema = Joi.object({
-    city: Joi.string().min(3).max(20),
+    city: Joi.string().min(3).max(40),
     state: Joi.string().length(2),
     zipCode: Joi.string()
       .length(5)
@@ -26,11 +26,24 @@ const initGetProperties = (deps: Deps): GetProperties => {
   });
 
   return async (_, args) => {
-    validate(args, argsSchema);
+    const defaultArgs = { limit: 10, offset: 0, ...args };
 
-    const properties = await getPropertiesAction(args);
+    const { data: validArgs, error } = validate(defaultArgs, argsSchema);
 
-    return properties;
+    if (error) {
+      logger.error(error.message);
+      errorBroker.throwBadUserInput(error.message);
+    }
+
+    const properties = await getPropertiesAction(validArgs);
+
+    return {
+      properties,
+      metadata: {
+        limit: defaultArgs.limit,
+        offset: defaultArgs.offset,
+      },
+    };
   };
 };
 

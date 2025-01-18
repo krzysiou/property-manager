@@ -8,11 +8,11 @@ import { addPropertyActionService } from '../../../../core/services/action-handl
 type AddProperty = PropertyModule.MutationResolvers['addProperty'];
 
 const initAddProperty = (deps: Deps): AddProperty => {
-  const { validate, database, weather } = deps;
+  const { logger, errorBroker, validate, database, weather } = deps;
 
   const argsSchema = Joi.object({
-    city: Joi.string().min(3).max(20).required(),
-    street: Joi.string().min(3).max(20).required(),
+    city: Joi.string().min(3).max(40).required(),
+    street: Joi.string().min(3).max(40).required(),
     state: Joi.string().length(2).required(),
     zipCode: Joi.string()
       .length(5)
@@ -26,9 +26,14 @@ const initAddProperty = (deps: Deps): AddProperty => {
   });
 
   return async (_, args) => {
-    validate(args, argsSchema);
+    const { data: validArgs, error } = validate(args, argsSchema);
 
-    const property = await addPropertyAction(args);
+    if (error) {
+      logger.error(error.message);
+      errorBroker.throwBadUserInput(error.message);
+    }
+
+    const property = await addPropertyAction(validArgs);
 
     return property;
   };

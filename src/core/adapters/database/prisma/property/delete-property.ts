@@ -5,7 +5,7 @@ const initDeleteProperty = (
   prismaClient: PrismaClient,
   { logger, errorBroker }: Deps
 ): DeleteProperty => {
-  return async (id: string) => {
+  return async ({ id }) => {
     try {
       await prismaClient.property.delete({
         where: {

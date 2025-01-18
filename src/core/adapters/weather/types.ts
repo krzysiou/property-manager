@@ -1,6 +1,8 @@
 import type { Fetcher } from '../fetcher/types';
 import type { Config } from '../../../config/types.js';
 import type { Validate } from '../../services/validation/validation-service.js';
+import type { Logger } from '../logger/types.js';
+import type { ErrorBroker } from '../error-broker/types.js';
 
 type CurrentWeather = {
   location: {
@@ -26,6 +28,8 @@ type CurrentWeather = {
 
 type Deps = {
   config: Config;
+  logger: Logger;
+  errorBroker: ErrorBroker;
   fetcher: Fetcher;
   validate: Validate;
 };

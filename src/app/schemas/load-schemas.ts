@@ -8,9 +8,11 @@ const schemaLoaders = [loadPropertySchema];
 const loadSchemas = (deps: Deps) =>
   schemaLoaders.reduce<{ typeDefs: string[]; resolvers: Resolvers[] }>(
     (acc, schemaLoader) => {
+      const { typeDefs, resolvers } = schemaLoader(deps);
+
       return {
-        typeDefs: [...acc.typeDefs, schemaLoader(deps).typeDefs],
-        resolvers: [...acc.resolvers, schemaLoader(deps).resolvers],
+        typeDefs: [...acc.typeDefs, typeDefs],
+        resolvers: [...acc.resolvers, resolvers],
       };
     },
     { typeDefs: [], resolvers: [] }

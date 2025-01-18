@@ -15,9 +15,7 @@ const deletePropertyActionService: DeletePropertyActionService = ({
   database,
 }) => {
   return async (args) => {
-    const { id } = args;
-
-    const hasSucceeded = await database.property.deleteProperty(id);
+    const hasSucceeded = await database.property.deleteProperty(args);
 
     return hasSucceeded;
   };

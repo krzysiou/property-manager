@@ -8,7 +8,7 @@ import { deletePropertyActionService } from '../../../../core/services/action-ha
 type DeleteProperty = PropertyModule.MutationResolvers['deleteProperty'];
 
 const initDeleteProperty = (deps: Deps): DeleteProperty => {
-  const { validate, database } = deps;
+  const { logger, errorBroker, validate, database } = deps;
 
   const argsSchema = Joi.object({
     id: Joi.string().uuid().required(),
@@ -19,9 +19,14 @@ const initDeleteProperty = (deps: Deps): DeleteProperty => {
   });
 
   return async (_, args) => {
-    validate(args, argsSchema);
+    const { data: validArgs, error } = validate(args, argsSchema);
 
-    const property = await deletePropertyAction(args);
+    if (error) {
+      logger.error(error.message);
+      errorBroker.throwBadUserInput(error.message);
+    }
+
+    const property = await deletePropertyAction(validArgs);
 
     return property;
   };

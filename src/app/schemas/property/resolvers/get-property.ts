@@ -8,7 +8,7 @@ import { getPropertyActionService } from '../../../../core/services/action-handl
 type GetProperty = PropertyModule.QueryResolvers['getProperty'];
 
 const initGetProperty = (deps: Deps): GetProperty => {
-  const { validate, database } = deps;
+  const { logger, errorBroker, validate, database } = deps;
 
   const argsSchema = Joi.object({
     id: Joi.string().uuid().required(),
@@ -17,9 +17,14 @@ const initGetProperty = (deps: Deps): GetProperty => {
   const getPropertyAction = getPropertyActionService({ database });
 
   return async (_, args) => {
-    validate(args, argsSchema);
+    const { data: validArgs, error } = validate(args, argsSchema);
 
-    const property = await getPropertyAction(args);
+    if (error) {
+      logger.error(error.message);
+      errorBroker.throwBadUserInput(error.message);
+    }
+
+    const property = await getPropertyAction(validArgs);
 
     return property;
   };

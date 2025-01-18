@@ -7,8 +7,8 @@ type Deps = {
 };
 
 type Fetcher = {
-  makeGetRequest: <T>(url: string) => Promise<T>;
-  makePostRequest: <T>(url: string, body: object) => Promise<T>;
+  makeGetRequest: <T = unknown>(url: string) => Promise<T>;
+  makePostRequest: <T = unknown>(url: string, body: object) => Promise<T>;
 };
 
 type FetcherAdapter = (deps: Deps) => Fetcher;

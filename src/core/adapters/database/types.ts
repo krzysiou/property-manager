@@ -1,4 +1,9 @@
-import type { Property } from '../../../app/schemas/types.codegen';
+import type {
+  MutationDeletePropertyArgs,
+  Property,
+  QueryGetPropertiesArgs,
+  QueryGetPropertyArgs,
+} from '../../../app/schemas/types.codegen';
 import type { ErrorBroker } from '../error-broker/types';
 import type { Logger } from '../logger/types.js';
 
@@ -7,14 +12,16 @@ type Deps = {
   errorBroker: ErrorBroker;
 };
 
+type GetProperties = (args: QueryGetPropertiesArgs) => Promise<Property[]>;
+type GetProperty = (args: QueryGetPropertyArgs) => Promise<Property>;
 type CreateProperty = (property: Property) => Promise<void>;
-type GetProperties = (limit: number, offset: number) => Promise<Property[]>;
-type DeleteProperty = (id: string) => Promise<boolean>;
+type DeleteProperty = (args: MutationDeletePropertyArgs) => Promise<boolean>;
 
 type Database = {
   property: {
-    createProperty: CreateProperty;
     getProperties: GetProperties;
+    getProperty: GetProperty;
+    createProperty: CreateProperty;
     deleteProperty: DeleteProperty;
   };
 };
@@ -25,7 +32,8 @@ export type {
   DatabaseAdapter,
   Database,
   Deps,
-  CreateProperty,
   GetProperties,
+  GetProperty,
+  CreateProperty,
   DeleteProperty,
 };

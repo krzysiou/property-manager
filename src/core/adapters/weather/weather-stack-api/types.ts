@@ -24,4 +24,4 @@ type WeatherStackApiResponse = {
   current: Current;
 };
 
-export { WeatherStackApiResponse };
+export type { WeatherStackApiResponse };

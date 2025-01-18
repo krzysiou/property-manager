@@ -28,6 +28,8 @@ export namespace PropertyModule {
       | 'lat'
       | 'lon'
       | 'creationDate';
+    Metadata: 'offset' | 'limit';
+    PropertiesWithMetadata: 'properties' | 'metadata';
     Query: 'getProperties' | 'getProperty';
     Mutation: 'addProperty' | 'deleteProperty';
   }
@@ -94,6 +96,11 @@ export namespace PropertyModule {
     DefinedFields['WeatherData']
   >;
   export type Property = Pick<Types.Property, DefinedFields['Property']>;
+  export type Metadata = Pick<Types.Metadata, DefinedFields['Metadata']>;
+  export type PropertiesWithMetadata = Pick<
+    Types.PropertiesWithMetadata,
+    DefinedFields['PropertiesWithMetadata']
+  >;
   export type Query = Pick<Types.Query, DefinedFields['Query']>;
   export type Mutation = Pick<Types.Mutation, DefinedFields['Mutation']>;
 
@@ -104,6 +111,14 @@ export namespace PropertyModule {
   export type PropertyResolvers = Pick<
     Types.PropertyResolvers,
     DefinedFields['Property'] | '__isTypeOf'
+  >;
+  export type MetadataResolvers = Pick<
+    Types.MetadataResolvers,
+    DefinedFields['Metadata'] | '__isTypeOf'
+  >;
+  export type PropertiesWithMetadataResolvers = Pick<
+    Types.PropertiesWithMetadataResolvers,
+    DefinedFields['PropertiesWithMetadata'] | '__isTypeOf'
   >;
   export type QueryResolvers = Pick<
     Types.QueryResolvers,
@@ -117,6 +132,8 @@ export namespace PropertyModule {
   export interface Resolvers {
     WeatherData?: WeatherDataResolvers;
     Property?: PropertyResolvers;
+    Metadata?: MetadataResolvers;
+    PropertiesWithMetadata?: PropertiesWithMetadataResolvers;
     Query?: QueryResolvers;
     Mutation?: MutationResolvers;
   }
@@ -152,6 +169,16 @@ export namespace PropertyModule {
       lat?: gm.Middleware[];
       lon?: gm.Middleware[];
       creationDate?: gm.Middleware[];
+    };
+    Metadata?: {
+      '*'?: gm.Middleware[];
+      offset?: gm.Middleware[];
+      limit?: gm.Middleware[];
+    };
+    PropertiesWithMetadata?: {
+      '*'?: gm.Middleware[];
+      properties?: gm.Middleware[];
+      metadata?: gm.Middleware[];
     };
     Query?: {
       '*'?: gm.Middleware[];

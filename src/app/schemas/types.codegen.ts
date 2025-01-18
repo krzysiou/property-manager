@@ -33,6 +33,12 @@ export type Scalars = {
   Float: { input: number; output: number };
 };
 
+export type Metadata = {
+  __typename?: 'Metadata';
+  limit: Scalars['Int']['output'];
+  offset: Scalars['Int']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addProperty: Property;
@@ -50,6 +56,12 @@ export type MutationDeletePropertyArgs = {
   id: Scalars['ID']['input'];
 };
 
+export type PropertiesWithMetadata = {
+  __typename?: 'PropertiesWithMetadata';
+  metadata: Metadata;
+  properties: Array<Property>;
+};
+
 export type Property = {
   __typename?: 'Property';
   city: Scalars['String']['output'];
@@ -65,7 +77,7 @@ export type Property = {
 
 export type Query = {
   __typename?: 'Query';
-  getProperties: Array<Property>;
+  getProperties: PropertiesWithMetadata;
   getProperty?: Maybe<Property>;
 };
 
@@ -264,7 +276,9 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Metadata: ResolverTypeWrapper<Metadata>;
   Mutation: ResolverTypeWrapper<{}>;
+  PropertiesWithMetadata: ResolverTypeWrapper<PropertiesWithMetadata>;
   Property: ResolverTypeWrapper<Property>;
   Query: ResolverTypeWrapper<{}>;
   Sort: Sort;
@@ -279,11 +293,23 @@ export type ResolversParentTypes = {
   Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
+  Metadata: Metadata;
   Mutation: {};
+  PropertiesWithMetadata: PropertiesWithMetadata;
   Property: Property;
   Query: {};
   String: Scalars['String']['output'];
   WeatherData: WeatherData;
+};
+
+export type MetadataResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['Metadata'] = ResolversParentTypes['Metadata'],
+> = {
+  limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  offset?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<
@@ -306,6 +332,20 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationDeletePropertyArgs, 'id'>
   >;
+};
+
+export type PropertiesWithMetadataResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['PropertiesWithMetadata'] = ResolversParentTypes['PropertiesWithMetadata'],
+> = {
+  metadata?: Resolver<ResolversTypes['Metadata'], ParentType, ContextType>;
+  properties?: Resolver<
+    Array<ResolversTypes['Property']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type PropertyResolvers<
@@ -335,7 +375,7 @@ export type QueryResolvers<
     ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
   getProperties?: Resolver<
-    Array<ResolversTypes['Property']>,
+    ResolversTypes['PropertiesWithMetadata'],
     ParentType,
     ContextType,
     Partial<QueryGetPropertiesArgs>
@@ -370,7 +410,9 @@ export type WeatherDataResolvers<
 };
 
 export type Resolvers<ContextType = any> = {
+  Metadata?: MetadataResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  PropertiesWithMetadata?: PropertiesWithMetadataResolvers<ContextType>;
   Property?: PropertyResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   WeatherData?: WeatherDataResolvers<ContextType>;

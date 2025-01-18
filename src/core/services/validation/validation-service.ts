@@ -1,27 +1,21 @@
 import type { ObjectSchema } from 'joi';
-import type { ErrorBroker } from '../../adapters/error-broker/types.js';
-import type { Logger } from '../../adapters/logger/types.js';
 
-type Deps = {
-  logger: Logger;
-  errorBroker: ErrorBroker;
-};
-
-type Validate = (
-  objectToValidate: object,
+type Validate = <T>(
+  objectToValidate: T,
   validationSchema: ObjectSchema
-) => void;
+) => { data: T; error: null } | { data: null; error: Error };
 
-type ValidationService = (deps: Deps) => Validate;
+type ValidationService = () => Validate;
 
-const validationService: ValidationService = ({ logger, errorBroker }) => {
+const validationService: ValidationService = () => {
   return (objectToValidate, validationSchema) => {
     const { error } = validationSchema.validate(objectToValidate);
 
     if (error) {
-      logger.error(error.message);
-      errorBroker.throwValidationError(error.message);
+      return { data: null, error };
     }
+
+    return { data: objectToValidate, error: null };
   };
 };
 

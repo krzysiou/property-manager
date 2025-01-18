@@ -5,10 +5,18 @@ const initGetProperties = (
   prismaClient: PrismaClient,
   { logger, errorBroker }: Deps
 ): GetProperties => {
-  return async (limit = 10, offset = 0) => {
+  return async ({ city, zipCode, state, limit, offset, sort }) => {
     try {
       return await prismaClient.property.findMany({
         include: { weatherData: true },
+        where: {
+          city,
+          zipCode,
+          state,
+        },
+        orderBy: {
+          creationDate: sort,
+        },
         skip: offset,
         take: limit,
       });

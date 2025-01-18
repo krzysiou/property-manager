@@ -4,14 +4,16 @@ import type { DatabaseAdapter } from '../types';
 
 import { initCreateProperty } from './property/create-property.js';
 import { initDeleteProperty } from './property/delete-property.js';
+import { initGetProperty } from './property/get-property.js';
 import { initGetProperties } from './property/get-properties.js';
 
 const prismaClient = new PrismaClient();
 
 const databaseAdapter: DatabaseAdapter = (deps) => ({
   property: {
-    createProperty: initCreateProperty(prismaClient, deps),
     getProperties: initGetProperties(prismaClient, deps),
+    getProperty: initGetProperty(prismaClient, deps),
+    createProperty: initCreateProperty(prismaClient, deps),
     deleteProperty: initDeleteProperty(prismaClient, deps),
   },
 });
