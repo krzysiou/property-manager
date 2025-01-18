@@ -1,0 +1,14 @@
+{ 
+  "recommendations": [
+    // ESLint
+    "dbaeumer.vscode-eslint",
+    // Prettier - Code Formatter
+    "esbenp.prettier-vscode",
+    // Apollo GraphQL
+    "apollographql.vscode-apollo",
+    // GraphQL: Language feature support
+    "GraphQL.vscode-graphql",
+    // Prisma
+    "Prisma.prisma"
+  ]
+}

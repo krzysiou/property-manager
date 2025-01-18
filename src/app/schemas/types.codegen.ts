@@ -1,7 +1,6 @@
 /* eslint-disable */
 // THIS FILE HAS BEEN GENERATED, DO NOT EDIT
 import { GraphQLResolveInfo } from 'graphql';
-import { Context } from '../server';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -286,7 +285,7 @@ export type ResolversParentTypes = {
 };
 
 export type MutationResolvers<
-  ContextType = Context,
+  ContextType = any,
   ParentType extends
     ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation'],
 > = {
@@ -308,7 +307,7 @@ export type MutationResolvers<
 };
 
 export type PropertyResolvers<
-  ContextType = Context,
+  ContextType = any,
   ParentType extends
     ResolversParentTypes['Property'] = ResolversParentTypes['Property'],
 > = {
@@ -329,7 +328,7 @@ export type PropertyResolvers<
 };
 
 export type QueryResolvers<
-  ContextType = Context,
+  ContextType = any,
   ParentType extends
     ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
@@ -348,7 +347,7 @@ export type QueryResolvers<
 };
 
 export type WeatherDataResolvers<
-  ContextType = Context,
+  ContextType = any,
   ParentType extends
     ResolversParentTypes['WeatherData'] = ResolversParentTypes['WeatherData'],
 > = {
@@ -368,7 +367,7 @@ export type WeatherDataResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type Resolvers<ContextType = Context> = {
+export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Property?: PropertyResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

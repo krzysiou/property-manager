@@ -1,32 +1,25 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 
-import type { Config } from '../config/types.js';
+import type { Deps } from './types.js';
 
-import { getConfig } from '../config/get-config.js';
-import { getSchemas } from './get-schemas.js';
-import { formatError } from './format-error.js';
+import { loadSchemas } from './schemas/load-schemas.js';
 
-type Context = {
-  config: Config;
-};
+const startServer = async (deps: Deps) => {
+  const { typeDefs, resolvers } = loadSchemas(deps);
 
-const config = getConfig();
-
-const { typeDefs, resolvers } = getSchemas();
-
-const server = new ApolloServer<Context>({
-  typeDefs,
-  resolvers,
-  formatError,
-});
-
-const startServer = async (port: string) =>
-  await startStandaloneServer(server, {
-    listen: { port: Number(port) },
-    context: async () => ({
-      config,
+  const server = new ApolloServer({
+    formatError: ({ message, extensions: { code } }) => ({
+      message,
+      code,
     }),
+    typeDefs,
+    resolvers,
   });
 
-export { startServer, type Context };
+  return await startStandaloneServer(server, {
+    listen: { port: Number(deps.config.port) },
+  });
+};
+
+export { startServer };

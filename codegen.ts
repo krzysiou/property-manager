@@ -19,9 +19,6 @@ const config: CodegenConfig = {
         'typescript',
         'typescript-resolvers',
       ],
-      config: {
-        contextType: '../server#Context',
-      },
     },
   },
 };

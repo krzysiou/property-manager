@@ -1,4 +1,4 @@
-import type { Config } from './types';
+import type { Config } from './types.js';
 
 const { PORT, WEATHER_API_URL, WEATHER_API_KEY } = process.env;
 
