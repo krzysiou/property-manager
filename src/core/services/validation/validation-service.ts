@@ -20,7 +20,7 @@ const validationService: ValidationService = ({ logger, errorBroker }) => {
 
     if (error) {
       logger.error(error.message);
-      errorBroker.throwBadUserInput(error.message);
+      errorBroker.throwValidationError(error.message);
     }
   };
 };
