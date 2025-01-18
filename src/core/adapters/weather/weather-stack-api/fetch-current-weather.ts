@@ -46,7 +46,10 @@ const initFetchCurrentWeather = ({
     validate(data, responseSchema);
 
     const currentWeather: CurrentWeather = {
-      location: data.location,
+      location: {
+        lat: data.location.lat,
+        lon: data.location.lon,
+      },
       current: {
         observationTime: data.current.observation_time,
         temperature: data.current.temperature,
