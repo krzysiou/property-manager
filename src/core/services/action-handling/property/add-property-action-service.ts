@@ -23,13 +23,10 @@ const addPropertyActionService: AddPropertyActionService = ({
   return async (args) => {
     const { city, street, state, zipCode } = args;
 
-    const id = uuid();
-    const creationDate = new Date(Date.now()).toISOString();
-
     const { location, current } = await weather.fetchCurrentWeather(zipCode);
 
     const property: Property = {
-      id,
+      id: uuid(),
       city,
       street,
       state,
@@ -37,7 +34,7 @@ const addPropertyActionService: AddPropertyActionService = ({
       lat: location.lat,
       lon: location.lon,
       weatherData: current,
-      creationDate,
+      creationDate: new Date(Date.now()).toISOString(),
     };
 
     await database.property.createProperty(property);
