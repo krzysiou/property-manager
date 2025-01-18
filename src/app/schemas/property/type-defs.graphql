@@ -85,7 +85,7 @@ type Property {
 }
 
 type Query {
-  getProperties(city: String, zipCode: String, state: State, sort: Sort): [Property!]!
+  getProperties(city: String, zipCode: String, state: State, sort: Sort, limit: Int, offset: Int): [Property!]!
   getProperty(id: ID!): Property
 }
 

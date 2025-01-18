@@ -5,10 +5,12 @@ const initGetProperties = (
   prismaClient: PrismaClient,
   { logger, errorBroker }: Deps
 ): GetProperties => {
-  return async () => {
+  return async (limit = 10, offset = 0) => {
     try {
       return await prismaClient.property.findMany({
         include: { weatherData: true },
+        skip: offset,
+        take: limit,
       });
     } catch (error) {
       logger.error(error.message);

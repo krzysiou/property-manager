@@ -71,6 +71,8 @@ export type Query = {
 
 export type QueryGetPropertiesArgs = {
   city?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Sort>;
   state?: InputMaybe<State>;
   zipCode?: InputMaybe<Scalars['String']['input']>;

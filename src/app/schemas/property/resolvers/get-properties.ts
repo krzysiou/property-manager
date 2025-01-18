@@ -17,6 +17,8 @@ const initGetProperties = (deps: Deps): GetProperties => {
       .length(5)
       .regex(/^[0-9]+$/),
     sort: Joi.string().valid('asc', 'desc'),
+    limit: Joi.number(),
+    offset: Joi.number(),
   });
 
   const getPropertiesAction = getPropertiesActionService({

@@ -18,9 +18,9 @@ const getPropertiesActionService: GetPropertiesActionService = ({
   database,
 }) => {
   return async (args) => {
-    const { city, zipCode, state, sort } = args;
+    const { city, zipCode, state, sort, limit, offset } = args;
 
-    let properties = await database.property.getProperties();
+    let properties = await database.property.getProperties(limit, offset);
 
     if (city) {
       properties = properties.filter((prop) => prop.city === city);

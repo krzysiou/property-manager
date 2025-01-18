@@ -8,7 +8,7 @@ type Deps = {
 };
 
 type CreateProperty = (property: Property) => Promise<void>;
-type GetProperties = () => Promise<Property[]>;
+type GetProperties = (limit: number, offset: number) => Promise<Property[]>;
 type DeleteProperty = (id: string) => Promise<boolean>;
 
 type Database = {
