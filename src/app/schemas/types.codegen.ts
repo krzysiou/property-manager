@@ -3,34 +3,19 @@
 import { GraphQLResolveInfo } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
-    };
-export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
-  [P in K]-?: NonNullable<T[P]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
 };
 
 export type Mutation = {
@@ -81,6 +66,7 @@ export type Query = {
   getProperty?: Maybe<Property>;
 };
 
+
 export type QueryGetPropertiesArgs = {
   city?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -90,11 +76,14 @@ export type QueryGetPropertiesArgs = {
   zipCode?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 export type QueryGetPropertyArgs = {
   id: Scalars['ID']['input'];
 };
 
-export type Sort = 'asc' | 'desc';
+export type Sort =
+  | 'asc'
+  | 'desc';
 
 export type State =
   | 'AK'
@@ -165,14 +154,15 @@ export type WeatherData = {
   windSpeed: Scalars['Float']['output'];
 };
 
+
+
 export type ResolverTypeWrapper<T> = Promise<T> | T;
+
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
-export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
-  | ResolverFn<TResult, TParent, TContext, TArgs>
-  | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -195,25 +185,9 @@ export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
-export interface SubscriptionSubscriberObject<
-  TResult,
-  TKey extends string,
-  TParent,
-  TContext,
-  TArgs,
-> {
-  subscribe: SubscriptionSubscribeFn<
-    { [key in TKey]: TResult },
-    TParent,
-    TContext,
-    TArgs
-  >;
-  resolve?: SubscriptionResolveFn<
-    TResult,
-    { [key in TKey]: TResult },
-    TContext,
-    TArgs
-  >;
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
 }
 
 export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
@@ -221,26 +195,12 @@ export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
   resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
 }
 
-export type SubscriptionObject<
-  TResult,
-  TKey extends string,
-  TParent,
-  TContext,
-  TArgs,
-> =
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
   | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
   | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export type SubscriptionResolver<
-  TResult,
-  TKey extends string,
-  TParent = {},
-  TContext = {},
-  TArgs = {},
-> =
-  | ((
-      ...args: any[]
-    ) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
   | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
 export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
@@ -249,26 +209,19 @@ export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
-  obj: T,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
-export type DirectiveResolverFn<
-  TResult = {},
-  TParent = {},
-  TContext = {},
-  TArgs = {},
-> = (
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
   next: NextResolverFn<TResult>,
   parent: TParent,
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
+
+
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
@@ -302,57 +255,24 @@ export type ResolversParentTypes = {
   WeatherData: WeatherData;
 };
 
-export type MutationResolvers<
-  ContextType = any,
-  ParentType extends
-    ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation'],
-> = {
-  addProperty?: Resolver<
-    ResolversTypes['Property'],
-    ParentType,
-    ContextType,
-    RequireFields<
-      MutationAddPropertyArgs,
-      'city' | 'state' | 'street' | 'zipCode'
-    >
-  >;
-  deleteProperty?: Resolver<
-    ResolversTypes['Boolean'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationDeletePropertyArgs, 'id'>
-  >;
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addProperty?: Resolver<ResolversTypes['Property'], ParentType, ContextType, RequireFields<MutationAddPropertyArgs, 'city' | 'state' | 'street' | 'zipCode'>>;
+  deleteProperty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeletePropertyArgs, 'id'>>;
 };
 
-export type PageInfoResolvers<
-  ContextType = any,
-  ParentType extends
-    ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo'],
-> = {
+export type PageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = {
   limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   offset?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type PropertiesWithPageInfoResolvers<
-  ContextType = any,
-  ParentType extends
-    ResolversParentTypes['PropertiesWithPageInfo'] = ResolversParentTypes['PropertiesWithPageInfo'],
-> = {
+export type PropertiesWithPageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PropertiesWithPageInfo'] = ResolversParentTypes['PropertiesWithPageInfo']> = {
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
-  properties?: Resolver<
-    Array<ResolversTypes['Property']>,
-    ParentType,
-    ContextType
-  >;
+  properties?: Resolver<Array<ResolversTypes['Property']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type PropertyResolvers<
-  ContextType = any,
-  ParentType extends
-    ResolversParentTypes['Property'] = ResolversParentTypes['Property'],
-> = {
+export type PropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['Property'] = ResolversParentTypes['Property']> = {
   city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   creationDate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -360,39 +280,17 @@ export type PropertyResolvers<
   lon?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   state?: Resolver<ResolversTypes['State'], ParentType, ContextType>;
   street?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  weatherData?: Resolver<
-    ResolversTypes['WeatherData'],
-    ParentType,
-    ContextType
-  >;
+  weatherData?: Resolver<ResolversTypes['WeatherData'], ParentType, ContextType>;
   zipCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type QueryResolvers<
-  ContextType = any,
-  ParentType extends
-    ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
-> = {
-  getProperties?: Resolver<
-    ResolversTypes['PropertiesWithPageInfo'],
-    ParentType,
-    ContextType,
-    Partial<QueryGetPropertiesArgs>
-  >;
-  getProperty?: Resolver<
-    Maybe<ResolversTypes['Property']>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryGetPropertyArgs, 'id'>
-  >;
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getProperties?: Resolver<ResolversTypes['PropertiesWithPageInfo'], ParentType, ContextType, Partial<QueryGetPropertiesArgs>>;
+  getProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<QueryGetPropertyArgs, 'id'>>;
 };
 
-export type WeatherDataResolvers<
-  ContextType = any,
-  ParentType extends
-    ResolversParentTypes['WeatherData'] = ResolversParentTypes['WeatherData'],
-> = {
+export type WeatherDataResolvers<ContextType = any, ParentType extends ResolversParentTypes['WeatherData'] = ResolversParentTypes['WeatherData']> = {
   cloudcover?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   feelslike?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   humidity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
@@ -417,3 +315,4 @@ export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   WeatherData?: WeatherDataResolvers<ContextType>;
 };
+

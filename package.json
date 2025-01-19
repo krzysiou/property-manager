@@ -9,8 +9,9 @@
   "keywords": [],
   "scripts": {
     "dev": "node --env-file=.env --import=tsx --watch ./src/index.ts",
-    "build": "npm run codegen && tsc",
+    "build": "npm run clean && tsc -p tsconfig.build.json",
     "start": "node --env-file=.env ./dist/index.js",
+    "test": "vitest",
     "db": "npx prisma studio",
     "db:migrate": "npx prisma migrate dev",
     "codegen": "graphql-codegen --config codegen.ts",
@@ -52,6 +53,7 @@
     "prettier": "^3.4.2",
     "prisma": "^6.2.1",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.2"
   }
 }
