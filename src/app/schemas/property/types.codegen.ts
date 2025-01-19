@@ -28,8 +28,8 @@ export namespace PropertyModule {
       | 'lat'
       | 'lon'
       | 'creationDate';
-    Metadata: 'offset' | 'limit';
-    PropertiesWithMetadata: 'properties' | 'metadata';
+    PageInfo: 'offset' | 'limit';
+    PropertiesWithPageInfo: 'properties' | 'pageInfo';
     Query: 'getProperties' | 'getProperty';
     Mutation: 'addProperty' | 'deleteProperty';
   }
@@ -96,10 +96,10 @@ export namespace PropertyModule {
     DefinedFields['WeatherData']
   >;
   export type Property = Pick<Types.Property, DefinedFields['Property']>;
-  export type Metadata = Pick<Types.Metadata, DefinedFields['Metadata']>;
-  export type PropertiesWithMetadata = Pick<
-    Types.PropertiesWithMetadata,
-    DefinedFields['PropertiesWithMetadata']
+  export type PageInfo = Pick<Types.PageInfo, DefinedFields['PageInfo']>;
+  export type PropertiesWithPageInfo = Pick<
+    Types.PropertiesWithPageInfo,
+    DefinedFields['PropertiesWithPageInfo']
   >;
   export type Query = Pick<Types.Query, DefinedFields['Query']>;
   export type Mutation = Pick<Types.Mutation, DefinedFields['Mutation']>;
@@ -112,13 +112,13 @@ export namespace PropertyModule {
     Types.PropertyResolvers,
     DefinedFields['Property'] | '__isTypeOf'
   >;
-  export type MetadataResolvers = Pick<
-    Types.MetadataResolvers,
-    DefinedFields['Metadata'] | '__isTypeOf'
+  export type PageInfoResolvers = Pick<
+    Types.PageInfoResolvers,
+    DefinedFields['PageInfo'] | '__isTypeOf'
   >;
-  export type PropertiesWithMetadataResolvers = Pick<
-    Types.PropertiesWithMetadataResolvers,
-    DefinedFields['PropertiesWithMetadata'] | '__isTypeOf'
+  export type PropertiesWithPageInfoResolvers = Pick<
+    Types.PropertiesWithPageInfoResolvers,
+    DefinedFields['PropertiesWithPageInfo'] | '__isTypeOf'
   >;
   export type QueryResolvers = Pick<
     Types.QueryResolvers,
@@ -132,8 +132,8 @@ export namespace PropertyModule {
   export interface Resolvers {
     WeatherData?: WeatherDataResolvers;
     Property?: PropertyResolvers;
-    Metadata?: MetadataResolvers;
-    PropertiesWithMetadata?: PropertiesWithMetadataResolvers;
+    PageInfo?: PageInfoResolvers;
+    PropertiesWithPageInfo?: PropertiesWithPageInfoResolvers;
     Query?: QueryResolvers;
     Mutation?: MutationResolvers;
   }
@@ -170,15 +170,15 @@ export namespace PropertyModule {
       lon?: gm.Middleware[];
       creationDate?: gm.Middleware[];
     };
-    Metadata?: {
+    PageInfo?: {
       '*'?: gm.Middleware[];
       offset?: gm.Middleware[];
       limit?: gm.Middleware[];
     };
-    PropertiesWithMetadata?: {
+    PropertiesWithPageInfo?: {
       '*'?: gm.Middleware[];
       properties?: gm.Middleware[];
-      metadata?: gm.Middleware[];
+      pageInfo?: gm.Middleware[];
     };
     Query?: {
       '*'?: gm.Middleware[];

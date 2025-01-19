@@ -33,12 +33,6 @@ export type Scalars = {
   Float: { input: number; output: number };
 };
 
-export type Metadata = {
-  __typename?: 'Metadata';
-  limit: Scalars['Int']['output'];
-  offset: Scalars['Int']['output'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   addProperty: Property;
@@ -56,9 +50,15 @@ export type MutationDeletePropertyArgs = {
   id: Scalars['ID']['input'];
 };
 
-export type PropertiesWithMetadata = {
-  __typename?: 'PropertiesWithMetadata';
-  metadata: Metadata;
+export type PageInfo = {
+  __typename?: 'PageInfo';
+  limit: Scalars['Int']['output'];
+  offset: Scalars['Int']['output'];
+};
+
+export type PropertiesWithPageInfo = {
+  __typename?: 'PropertiesWithPageInfo';
+  pageInfo: PageInfo;
   properties: Array<Property>;
 };
 
@@ -77,7 +77,7 @@ export type Property = {
 
 export type Query = {
   __typename?: 'Query';
-  getProperties: PropertiesWithMetadata;
+  getProperties: PropertiesWithPageInfo;
   getProperty?: Maybe<Property>;
 };
 
@@ -276,9 +276,9 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  Metadata: ResolverTypeWrapper<Metadata>;
   Mutation: ResolverTypeWrapper<{}>;
-  PropertiesWithMetadata: ResolverTypeWrapper<PropertiesWithMetadata>;
+  PageInfo: ResolverTypeWrapper<PageInfo>;
+  PropertiesWithPageInfo: ResolverTypeWrapper<PropertiesWithPageInfo>;
   Property: ResolverTypeWrapper<Property>;
   Query: ResolverTypeWrapper<{}>;
   Sort: Sort;
@@ -293,23 +293,13 @@ export type ResolversParentTypes = {
   Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
-  Metadata: Metadata;
   Mutation: {};
-  PropertiesWithMetadata: PropertiesWithMetadata;
+  PageInfo: PageInfo;
+  PropertiesWithPageInfo: PropertiesWithPageInfo;
   Property: Property;
   Query: {};
   String: Scalars['String']['output'];
   WeatherData: WeatherData;
-};
-
-export type MetadataResolvers<
-  ContextType = any,
-  ParentType extends
-    ResolversParentTypes['Metadata'] = ResolversParentTypes['Metadata'],
-> = {
-  limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  offset?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<
@@ -334,12 +324,22 @@ export type MutationResolvers<
   >;
 };
 
-export type PropertiesWithMetadataResolvers<
+export type PageInfoResolvers<
   ContextType = any,
   ParentType extends
-    ResolversParentTypes['PropertiesWithMetadata'] = ResolversParentTypes['PropertiesWithMetadata'],
+    ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo'],
 > = {
-  metadata?: Resolver<ResolversTypes['Metadata'], ParentType, ContextType>;
+  limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  offset?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PropertiesWithPageInfoResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes['PropertiesWithPageInfo'] = ResolversParentTypes['PropertiesWithPageInfo'],
+> = {
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   properties?: Resolver<
     Array<ResolversTypes['Property']>,
     ParentType,
@@ -375,7 +375,7 @@ export type QueryResolvers<
     ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
   getProperties?: Resolver<
-    ResolversTypes['PropertiesWithMetadata'],
+    ResolversTypes['PropertiesWithPageInfo'],
     ParentType,
     ContextType,
     Partial<QueryGetPropertiesArgs>
@@ -410,9 +410,9 @@ export type WeatherDataResolvers<
 };
 
 export type Resolvers<ContextType = any> = {
-  Metadata?: MetadataResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
-  PropertiesWithMetadata?: PropertiesWithMetadataResolvers<ContextType>;
+  PageInfo?: PageInfoResolvers<ContextType>;
+  PropertiesWithPageInfo?: PropertiesWithPageInfoResolvers<ContextType>;
   Property?: PropertyResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   WeatherData?: WeatherDataResolvers<ContextType>;

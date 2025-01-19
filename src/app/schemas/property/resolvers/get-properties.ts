@@ -39,7 +39,7 @@ const initGetProperties = (deps: Deps): GetProperties => {
 
     return {
       properties,
-      metadata: {
+      pageInfo: {
         limit: defaultArgs.limit,
         offset: defaultArgs.offset,
       },
