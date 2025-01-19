@@ -1,4 +1,4 @@
-import type { PrismaClient } from '@prisma/client';
+import type { PrismaClient, Prisma } from '@prisma/client';
 import type { Deps, GetProperties } from '../../types.js';
 
 const initGetProperties = (
@@ -7,8 +7,8 @@ const initGetProperties = (
 ): GetProperties => {
   return async ({ city, zipCode, state, limit, offset, sort }) => {
     try {
-      let where: Record<string, string | undefined> = {};
-      let orderBy: Record<string, string | undefined> = {};
+      let where: Prisma.PropertyWhereInput = {};
+      let orderBy: Prisma.PropertyOrderByWithAggregationInput = {};
 
       const skip = offset || undefined;
       const take = limit || undefined;
