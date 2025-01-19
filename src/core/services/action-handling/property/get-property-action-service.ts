@@ -22,4 +22,4 @@ const getPropertyActionService: GetPropertyActionService = ({ database }) => {
   };
 };
 
-export { getPropertyActionService };
+export { getPropertyActionService, type GetPropertyAction };

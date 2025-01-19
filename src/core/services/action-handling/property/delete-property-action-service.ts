@@ -21,4 +21,4 @@ const deletePropertyActionService: DeletePropertyActionService = ({
   };
 };
 
-export { deletePropertyActionService };
+export { deletePropertyActionService, type DeletePropertyAction };

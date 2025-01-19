@@ -1,3 +1,5 @@
+type Env = 'pro' | 'dev' | 'test';
+
 type WeatherApiConfig = {
   url: string;
   key: string;
@@ -5,7 +7,8 @@ type WeatherApiConfig = {
 
 type Config = {
   port: string;
+  env: Env;
   weatherApiConfig: WeatherApiConfig;
 };
 
-export type { Config };
+export type { Config, Env };

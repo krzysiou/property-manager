@@ -24,4 +24,4 @@ const getPropertiesActionService: GetPropertiesActionService = ({
   };
 };
 
-export { getPropertiesActionService };
+export { getPropertiesActionService, type GetPropertiesAction };

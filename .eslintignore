@@ -1,2 +1,2 @@
 *.codegen.ts
-prisma
+/prisma/**

@@ -13,8 +13,11 @@
     "test": "vitest",
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "start": "node --env-file=.env ./dist/index.js",
-    "db": "npx prisma studio",
-    "db:migrate": "npx prisma migrate dev",
+    "db:dev-test": "npx prisma studio --schema=prisma/dev-test/schema.prisma",
+    "db:dev": "npx prisma studio --schema=prisma/dev/schema.prisma",
+    "db:migrate:dev": "npx prisma migrate dev --schema=prisma/dev/schema.prisma",
+    "db:migrate:dev-test": "npx prisma migrate dev --schema=prisma/dev-test/schema.prisma",
+    "db:generate": "prisma generate --schema prisma/dev/schema.prisma && prisma generate --schema prisma/dev-test/schema.prisma",
     "clean": "rm -rf dist",
     "clean:codegen": "find src -type f -name \"types.codegen.ts\" -exec rm -f {} \\;",
     "lint": "npx eslint --cache",
@@ -54,6 +57,6 @@
     "prisma": "^6.2.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
-    "vitest": "^3.0.2"
+    "vitest": "^2.1.3"
   }
 }

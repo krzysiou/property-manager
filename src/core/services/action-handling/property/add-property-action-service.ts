@@ -41,4 +41,4 @@ const addPropertyActionService: AddPropertyActionService = ({
   };
 };
 
-export { addPropertyActionService };
+export { addPropertyActionService, type AddPropertyAction };
