@@ -20,9 +20,7 @@ const addPropertyActionService: AddPropertyActionService = ({
   database,
   weather,
 }) => {
-  return async (args) => {
-    const { city, street, state, zipCode } = args;
-
+  return async ({ city, street, state, zipCode }) => {
     const { location, current } = await weather.fetchCurrentWeather(zipCode);
 
     const property: Property = {

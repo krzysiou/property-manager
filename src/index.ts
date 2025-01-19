@@ -11,7 +11,6 @@ import { fetcherAdapter } from './core/adapters/fetcher/axios.js';
 import { WeatherAdapter } from './core/adapters/weather/weather-stack-api/index.js';
 
 const config = getConfig();
-
 const logger = loggerAdapter();
 const errorBroker = errorBrokerAdapter();
 const fetcher = fetcherAdapter({ logger, errorBroker });
