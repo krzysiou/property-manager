@@ -8,7 +8,9 @@ type Deps = {
   database: Database;
 };
 
-type GetPropertyAction = (args: QueryGetPropertyArgs) => Promise<Property>;
+type GetPropertyAction = (
+  args: QueryGetPropertyArgs
+) => Promise<Property | null>;
 
 type GetPropertyActionService = (deps: Deps) => GetPropertyAction;
 

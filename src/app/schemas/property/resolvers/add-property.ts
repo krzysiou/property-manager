@@ -26,14 +26,14 @@ const initAddProperty = (deps: Deps): AddProperty => {
   });
 
   return async (_, args) => {
-    const { data: validArgs, error } = validate(args, argsSchema);
+    const error = validate(args, argsSchema);
 
     if (error) {
       logger.error(error.message);
-      errorBroker.throwBadUserInput(error.message);
+      throw errorBroker.badUserInput(error.message);
     }
 
-    const property = await addPropertyAction(validArgs);
+    const property = await addPropertyAction(args);
 
     return property;
   };

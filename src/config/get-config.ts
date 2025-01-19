@@ -1,11 +1,15 @@
 import type { Config } from './types.js';
 
-const { PORT, WEATHER_API_URL, WEATHER_API_KEY } = process.env;
+const {
+  PORT = '3000',
+  WEATHER_API_URL = 'https://api.weatherstack.com',
+  WEATHER_API_KEY = '',
+} = process.env;
 
 const getConfig = (): Config => ({
-  port: PORT || '3000',
+  port: PORT,
   weatherApiConfig: {
-    url: WEATHER_API_URL || 'https://api.weatherstack.com',
+    url: WEATHER_API_URL,
     key: WEATHER_API_KEY,
   },
 });

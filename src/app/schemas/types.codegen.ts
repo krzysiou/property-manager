@@ -24,12 +24,14 @@ export type Mutation = {
   deleteProperty: Scalars['Boolean']['output'];
 };
 
+
 export type MutationAddPropertyArgs = {
   city: Scalars['String']['input'];
   state: State;
   street: Scalars['String']['input'];
   zipCode: Scalars['String']['input'];
 };
+
 
 export type MutationDeletePropertyArgs = {
   id: Scalars['ID']['input'];
@@ -286,7 +288,7 @@ export type PropertyResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getProperties?: Resolver<ResolversTypes['PropertiesWithPageInfo'], ParentType, ContextType, Partial<QueryGetPropertiesArgs>>;
+  getProperties?: Resolver<ResolversTypes['PropertiesWithPageInfo'], ParentType, ContextType, RequireFields<QueryGetPropertiesArgs, 'limit' | 'offset'>>;
   getProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<QueryGetPropertyArgs, 'id'>>;
 };
 

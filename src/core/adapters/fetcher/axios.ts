@@ -7,16 +7,20 @@ const fetcherAdapter: FetcherAdapter = ({ logger, errorBroker }) => ({
     try {
       return (await axios.get(url)).data;
     } catch (error) {
-      logger.error(error.message);
-      errorBroker.throwFetchingError(error.message);
+      if (error instanceof Error) {
+        logger.error(error.message);
+        throw errorBroker.fetchingError(error.message);
+      }
     }
   },
   makePostRequest: async (url, body) => {
     try {
       return (await axios.post(url, body)).data;
     } catch (error) {
-      logger.error(error.message);
-      errorBroker.throwFetchingError(error.message);
+      if (error instanceof Error) {
+        logger.error(error.message);
+        throw errorBroker.fetchingError(error.message);
+      }
     }
   },
 });

@@ -19,32 +19,32 @@ const initFetchCurrentWeather = ({
       `${url}/current?access_key=${key}&query=${zipCode}`
     );
 
-    const { data: validData, error } = validate(data, responseSchema);
+    const error = validate(data, responseSchema);
 
     if (error) {
       logger.error(error.message);
-      errorBroker.throwValidationError(error.message);
+      throw errorBroker.validationError(error.message);
     }
 
     const currentWeather: CurrentWeather = {
       location: {
-        lat: validData.location.lat,
-        lon: validData.location.lon,
+        lat: data.location.lat,
+        lon: data.location.lon,
       },
       current: {
-        observationTime: validData.current.observation_time,
-        temperature: validData.current.temperature,
-        weatherCode: validData.current.weather_code,
-        windSpeed: validData.current.wind_speed,
-        windDegree: validData.current.wind_degree,
-        windDir: validData.current.wind_dir,
-        pressure: validData.current.pressure,
-        precip: validData.current.precip,
-        humidity: validData.current.humidity,
-        cloudcover: validData.current.cloudcover,
-        feelslike: validData.current.feelslike,
-        uvIndex: validData.current.uv_index,
-        visibility: validData.current.visibility,
+        observationTime: data.current.observation_time,
+        temperature: data.current.temperature,
+        weatherCode: data.current.weather_code,
+        windSpeed: data.current.wind_speed,
+        windDegree: data.current.wind_degree,
+        windDir: data.current.wind_dir,
+        pressure: data.current.pressure,
+        precip: data.current.precip,
+        humidity: data.current.humidity,
+        cloudcover: data.current.cloudcover,
+        feelslike: data.current.feelslike,
+        uvIndex: data.current.uv_index,
+        visibility: data.current.visibility,
       },
     };
 

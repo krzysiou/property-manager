@@ -26,22 +26,20 @@ const initGetProperties = (deps: Deps): GetProperties => {
   });
 
   return async (_, args) => {
-    const defaultArgs = { limit: 10, offset: 0, ...args };
-
-    const { data: validArgs, error } = validate(defaultArgs, argsSchema);
+    const error = validate(args, argsSchema);
 
     if (error) {
       logger.error(error.message);
-      errorBroker.throwBadUserInput(error.message);
+      throw errorBroker.badUserInput(error.message);
     }
 
-    const properties = await getPropertiesAction(validArgs);
+    const properties = await getPropertiesAction(args);
 
     return {
       properties,
       pageInfo: {
-        limit: defaultArgs.limit,
-        offset: defaultArgs.offset,
+        limit: args.limit,
+        offset: args.offset,
       },
     };
   };

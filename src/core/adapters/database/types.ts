@@ -13,8 +13,11 @@ type Deps = {
 };
 
 type GetProperties = (args: QueryGetPropertiesArgs) => Promise<Property[]>;
-type GetProperty = (args: QueryGetPropertyArgs) => Promise<Property>;
+
+type GetProperty = (args: QueryGetPropertyArgs) => Promise<Property | null>;
+
 type CreateProperty = (property: Property) => Promise<void>;
+
 type DeleteProperty = (args: MutationDeletePropertyArgs) => Promise<boolean>;
 
 type Database = {

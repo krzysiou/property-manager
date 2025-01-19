@@ -7,22 +7,44 @@ const initGetProperties = (
 ): GetProperties => {
   return async ({ city, zipCode, state, limit, offset, sort }) => {
     try {
-      return await prismaClient.property.findMany({
+      let where: Record<string, string | undefined> = {};
+      let orderBy: Record<string, string | undefined> = {};
+
+      const skip = offset || undefined;
+      const take = limit || undefined;
+
+      if (city) {
+        where = { ...where, city };
+      }
+
+      if (zipCode) {
+        where = { ...where, zipCode };
+      }
+
+      if (state) {
+        where = { ...where, state };
+      }
+
+      if (sort) {
+        orderBy = { ...orderBy, creationDate: sort };
+      }
+
+      const properties = await prismaClient.property.findMany({
         include: { weatherData: true },
-        where: {
-          city,
-          zipCode,
-          state,
-        },
-        orderBy: {
-          creationDate: sort,
-        },
-        skip: offset,
-        take: limit,
+        where,
+        orderBy,
+        skip,
+        take,
       });
+
+      return properties;
     } catch (error) {
-      logger.error(error.message);
-      errorBroker.throwDatabaseError(error.message);
+      if (error instanceof Error) {
+        logger.error(error.message);
+        throw errorBroker.databaseError(error.message);
+      }
+
+      return [];
     }
   };
 };

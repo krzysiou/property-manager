@@ -95,7 +95,7 @@ type PropertiesWithPageInfo {
 }
 
 type Query {
-  getProperties(city: String, zipCode: String, state: State, sort: Sort, limit: Int, offset: Int): PropertiesWithPageInfo!
+  getProperties(city: String, zipCode: String, state: State, sort: Sort, limit: Int = 10, offset: Int = 0): PropertiesWithPageInfo!
   getProperty(id: ID!): Property
 }
 

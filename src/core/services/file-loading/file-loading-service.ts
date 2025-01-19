@@ -21,7 +21,7 @@ const fileLoadingService: FileLoadingService = ({ logger, errorBroker }) => {
       const message = `Could not open ${filePath} file`;
 
       logger.error(message);
-      errorBroker.throwInternalServerError(message);
+      throw errorBroker.internalServerError(message);
     }
   };
 };

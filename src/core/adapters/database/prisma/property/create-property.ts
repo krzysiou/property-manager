@@ -9,38 +9,44 @@ const initCreateProperty = (
   { logger, errorBroker }: Deps
 ): CreateProperty => {
   return async (property: Property) => {
-    try {
-      const { id: propertyId, weatherData, ...rest } = property;
+    const { id: propertyId, weatherData, ...propertyData } = property;
 
-      const propertyExists = await prismaClient.property.findFirst({
+    const propertyExists = Boolean(
+      await prismaClient.property.findFirst({
         where: { id: propertyId },
+      })
+    );
+
+    if (propertyExists) {
+      const message = `Property with id ${propertyId} already exists`;
+
+      logger.error(message);
+      throw errorBroker.databaseError(message);
+    }
+
+    const weatherDataId = uuid();
+
+    try {
+      await prismaClient.weatherData.create({
+        data: {
+          id: weatherDataId,
+          propertyId,
+          ...weatherData,
+        },
       });
-
-      if (propertyExists) {
-        const message = `Property with id ${propertyId} already exists`;
-
-        logger.error(message);
-        errorBroker.throwDatabaseError(message);
-      }
-
-      const weatherDataId = uuid();
 
       await prismaClient.property.create({
         data: {
           id: propertyId,
           weatherDataId,
-          ...rest,
-          weatherData: {
-            create: {
-              id: weatherDataId,
-              ...weatherData,
-            },
-          },
+          ...propertyData,
         },
       });
     } catch (error) {
-      logger.error(error.message);
-      errorBroker.throwDatabaseError(error.message);
+      if (error instanceof Error) {
+        logger.error(error.message);
+        throw errorBroker.databaseError(error.message);
+      }
     }
   };
 };

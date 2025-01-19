@@ -4,28 +4,28 @@ import { ApolloServerErrorCode } from '@apollo/server/errors';
 import type { ErrorBrokerAdapter } from './types.js';
 
 const errorBrokerAdapter: ErrorBrokerAdapter = () => ({
-  throwBadUserInput: (message: string) => {
-    throw new GraphQLError(message, {
+  badUserInput: (message: string) => {
+    return new GraphQLError(message, {
       extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT },
     });
   },
-  throwInternalServerError: (message: string) => {
-    throw new GraphQLError(message, {
+  internalServerError: (message: string) => {
+    return new GraphQLError(message, {
       extensions: { code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR },
     });
   },
-  throwDatabaseError: (message: string) => {
-    throw new GraphQLError(message, {
+  databaseError: (message: string) => {
+    return new GraphQLError(message, {
       extensions: { code: 'DATABASE-ERROR' },
     });
   },
-  throwFetchingError: (message: string) => {
-    throw new GraphQLError(message, {
+  fetchingError: (message: string) => {
+    return new GraphQLError(message, {
       extensions: { code: 'FETCHING-ERROR' },
     });
   },
-  throwValidationError: (message: string) => {
-    throw new GraphQLError(message, {
+  validationError: (message: string) => {
+    return new GraphQLError(message, {
       extensions: { code: 'VALIDATION-ERROR' },
     });
   },

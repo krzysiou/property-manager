@@ -19,14 +19,14 @@ const initDeleteProperty = (deps: Deps): DeleteProperty => {
   });
 
   return async (_, args) => {
-    const { data: validArgs, error } = validate(args, argsSchema);
+    const error = validate(args, argsSchema);
 
     if (error) {
       logger.error(error.message);
-      errorBroker.throwBadUserInput(error.message);
+      throw errorBroker.badUserInput(error.message);
     }
 
-    const property = await deletePropertyAction(validArgs);
+    const property = await deletePropertyAction(args);
 
     return property;
   };

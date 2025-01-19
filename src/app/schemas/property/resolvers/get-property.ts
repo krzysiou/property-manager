@@ -17,14 +17,14 @@ const initGetProperty = (deps: Deps): GetProperty => {
   const getPropertyAction = getPropertyActionService({ database });
 
   return async (_, args) => {
-    const { data: validArgs, error } = validate(args, argsSchema);
+    const error = validate(args, argsSchema);
 
     if (error) {
       logger.error(error.message);
-      errorBroker.throwBadUserInput(error.message);
+      throw errorBroker.badUserInput(error.message);
     }
 
-    const property = await getPropertyAction(validArgs);
+    const property = await getPropertyAction(args);
 
     return property;
   };

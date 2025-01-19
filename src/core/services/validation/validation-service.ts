@@ -3,7 +3,7 @@ import type { ObjectSchema } from 'joi';
 type Validate = <T>(
   objectToValidate: T,
   validationSchema: ObjectSchema
-) => { data: T; error: null } | { data: null; error: Error };
+) => Error | null;
 
 type ValidationService = () => Validate;
 
@@ -12,10 +12,10 @@ const validationService: ValidationService = () => {
     const { error } = validationSchema.validate(objectToValidate);
 
     if (error) {
-      return { data: null, error };
+      return error;
     }
 
-    return { data: objectToValidate, error: null };
+    return null;
   };
 };
 

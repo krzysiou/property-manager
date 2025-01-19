@@ -2,8 +2,7 @@ import assert from 'assert';
 
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import type { ApolloServer } from '@apollo/server';
-import type { GraphQLResolveInfo } from 'graphql';
+import type { ApolloServer, BaseContext } from '@apollo/server';
 import type { Deps } from '../src/app/types.js';
 import type { PropertiesWithPageInfo } from '../src/app/schemas/types.codegen.js';
 
@@ -18,7 +17,7 @@ import { WeatherAdapter } from '../src/core/adapters/weather/weather-stack-api/i
 import { getConfig } from '../src/config/get-config.js';
 
 describe('e2e', () => {
-  let testServer: ApolloServer<GraphQLResolveInfo>;
+  let testServer: ApolloServer<BaseContext>;
 
   beforeAll(() => {
     const config = getConfig();
@@ -59,7 +58,7 @@ describe('e2e', () => {
     assert(response.body.kind === 'single');
 
     const data = response.body.singleResult.data
-      .getProperties as unknown as PropertiesWithPageInfo;
+      ?.getProperties as unknown as PropertiesWithPageInfo;
 
     expect(response.body.singleResult.errors).toBeUndefined();
     expect(data.properties[0].id).toBeDefined();

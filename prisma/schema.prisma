@@ -8,7 +8,7 @@ datasource db {
 }
 
 model WeatherData {
-  id              String   @id @default(uuid())
+  id              String    @id @default(uuid())
   observationTime String
   temperature     Float
   weatherCode     Int
@@ -22,12 +22,12 @@ model WeatherData {
   feelslike       Float
   uvIndex         Float
   visibility      Float
-  propertyId      String   @unique
-  property        Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId      String    @unique
+  property        Property?
 }
 
 model Property {
-  id            String       @id @default(uuid())
+  id            String      @id @default(uuid())
   city          String
   street        String
   state         State
@@ -35,8 +35,8 @@ model Property {
   lat           String
   lon           String
   creationDate  String
-  weatherDataId String
-  weatherData   WeatherData?
+  weatherDataId String      @unique
+  weatherData   WeatherData @relation(fields: [weatherDataId], references: [id], onDelete: Cascade)
 }
 
 enum State {

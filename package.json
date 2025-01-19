@@ -9,17 +9,17 @@
   "keywords": [],
   "scripts": {
     "dev": "node --env-file=.env --import=tsx --watch ./src/index.ts",
+    "codegen": "graphql-codegen --config codegen.ts",
+    "test": "vitest",
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "start": "node --env-file=.env ./dist/index.js",
-    "test": "vitest",
     "db": "npx prisma studio",
     "db:migrate": "npx prisma migrate dev",
-    "codegen": "graphql-codegen --config codegen.ts",
     "clean": "rm -rf dist",
     "clean:codegen": "find src -type f -name \"types.codegen.ts\" -exec rm -f {} \\;",
     "lint": "npx eslint --cache",
     "lint:fix": "npx eslint --fix",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit -p tsconfig.build.json",
     "prepare": "husky"
   },
   "dependencies": {

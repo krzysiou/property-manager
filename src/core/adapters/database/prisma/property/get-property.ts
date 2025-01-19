@@ -7,15 +7,19 @@ const initGetProperty = (
 ): GetProperty => {
   return async ({ id }) => {
     try {
-      return await prismaClient.property.findUnique({
+      const property = await prismaClient.property.findFirst({
         include: { weatherData: true },
-        where: {
-          id,
-        },
+        where: { id },
       });
+
+      return property;
     } catch (error) {
-      logger.error(error.message);
-      errorBroker.throwDatabaseError(error.message);
+      if (error instanceof Error) {
+        logger.error(error.message);
+        throw errorBroker.databaseError(error.message);
+      }
+
+      return null;
     }
   };
 };
