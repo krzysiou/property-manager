@@ -1,4 +1,4 @@
-import type { Fetcher } from '../fetcher/types';
+import type { Fetcher } from '../fetcher/types.js';
 import type { Config } from '../../../config/types.js';
 import type { Validate } from '../../services/validation/validation-service.js';
 import type { Logger } from '../logger/types.js';

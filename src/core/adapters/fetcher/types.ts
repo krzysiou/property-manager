@@ -1,4 +1,4 @@
-import type { ErrorBroker } from '../error-broker/types';
+import type { ErrorBroker } from '../error-broker/types.js';
 import type { Logger } from '../logger/types.js';
 
 type Deps = {

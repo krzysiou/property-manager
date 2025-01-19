@@ -3,8 +3,8 @@ import type {
   Property,
   QueryGetPropertiesArgs,
   QueryGetPropertyArgs,
-} from '../../../app/schemas/types.codegen';
-import type { ErrorBroker } from '../error-broker/types';
+} from '../../../app/schemas/types.codegen.js';
+import type { ErrorBroker } from '../error-broker/types.js';
 import type { Logger } from '../logger/types.js';
 
 type Deps = {

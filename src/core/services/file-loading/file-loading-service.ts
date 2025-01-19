@@ -1,8 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-import type { Logger } from '../../adapters/logger/types.js';
 import type { ErrorBroker } from '../../adapters/error-broker/types.js';
+import type { Logger } from '../../adapters/logger/types.js';
 
 type Deps = {
   logger: Logger;

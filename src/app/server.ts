@@ -5,7 +5,7 @@ import type { Deps } from './types.js';
 
 import { loadSchemas } from './schemas/load-schemas.js';
 
-const startServer = async (deps: Deps) => {
+const getServer = (deps: Deps) => {
   const { typeDefs, resolvers } = loadSchemas(deps);
 
   const server = new ApolloServer({
@@ -17,9 +17,17 @@ const startServer = async (deps: Deps) => {
     resolvers,
   });
 
-  return await startStandaloneServer(server, {
-    listen: { port: Number(deps.config.port) },
-  });
+  return server;
 };
 
-export { startServer };
+const startServer = async (deps: Deps) => {
+  const server = getServer(deps);
+
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: Number(deps.config.port) },
+  });
+
+  return { server, url };
+};
+
+export { startServer, getServer };

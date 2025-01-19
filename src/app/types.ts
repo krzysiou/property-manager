@@ -1,6 +1,6 @@
-import type { Config } from '../config/types';
-import type { ErrorBroker } from '../core/adapters/error-broker/types';
-import type { Logger } from '../core/adapters/logger/types';
+import type { Config } from '../config/types.js';
+import type { ErrorBroker } from '../core/adapters/error-broker/types.js';
+import type { Logger } from '../core/adapters/logger/types.js';
 import type { Database } from '../core/adapters/database/types.js';
 import type { Fetcher } from '../core/adapters/fetcher/types.js';
 import type { LoadFile } from '../core/services/file-loading/file-loading-service.js';

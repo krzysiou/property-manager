@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import type { DatabaseAdapter } from '../types';
+import type { DatabaseAdapter } from '../types.js';
 
 import { initCreateProperty } from './property/create-property.js';
 import { initDeleteProperty } from './property/delete-property.js';

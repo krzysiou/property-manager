@@ -1,4 +1,4 @@
-import type { LoggerAdapter } from './types';
+import type { LoggerAdapter } from './types.js';
 
 const loggerAdapter: LoggerAdapter = () => ({
   info: (message: string) => console.info(message),

@@ -1,4 +1,4 @@
-import type { CurrentWeather, Deps, FetchCurrentWeather } from '../types';
+import type { CurrentWeather, Deps, FetchCurrentWeather } from '../types.js';
 import type { WeatherStackApiResponse } from './types.js';
 
 import { responseSchema } from './api-response.schema.js';

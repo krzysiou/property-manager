@@ -1,4 +1,4 @@
-import type { WeatherAdapter } from '../types';
+import type { WeatherAdapter } from '../types.js';
 
 import { initFetchCurrentWeather } from './fetch-current-weather.js';
 
