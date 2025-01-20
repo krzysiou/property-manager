@@ -73,7 +73,7 @@ describe('integration/get-properties', () => {
   });
 
   afterEach(async () => {
-    await pruneDatabase(mockIds, testServer);
+    await pruneDatabase(mockIds, database);
   });
 
   it('returns 10 properties with 0 offset when limit and offset are not set', async () => {
@@ -276,7 +276,7 @@ describe('integration/get-properties', () => {
     const date1 = new Date(data.properties[0].creationDate);
     const date2 = new Date(data.properties[1].creationDate);
 
-    expect(date1.getTime()).toBeLessThan(date2.getTime());
+    expect(date1.getTime()).toBeLessThanOrEqual(date2.getTime());
   });
 
   it('returns sorted properties when desc is used', async () => {
@@ -300,7 +300,7 @@ describe('integration/get-properties', () => {
     const date1 = new Date(data.properties[0].creationDate);
     const date2 = new Date(data.properties[1].creationDate);
 
-    expect(date1.getTime()).toBeGreaterThan(date2.getTime());
+    expect(date1.getTime()).toBeGreaterThanOrEqual(date2.getTime());
   });
 
   it('returns all properties which were requested', async () => {

@@ -70,7 +70,7 @@ describe('integration/get-property', () => {
   });
 
   afterEach(async () => {
-    await pruneDatabase(mockIds, testServer);
+    await pruneDatabase(mockIds, database);
   });
 
   it('returns property data if property exists', async () => {

@@ -1,15 +1,6 @@
 import assert from 'assert';
 
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  it,
-  vi,
-} from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 
 import type { ApolloServer, BaseContext } from '@apollo/server';
 import type { Config } from '../../src/config/types.js';
@@ -25,16 +16,12 @@ import { validationService } from '../../src/core/services/validation/validation
 import { fileLoadingService } from '../../src/core/services/file-loading/file-loading-service.js';
 import { getServer } from '../../src/app/server.js';
 import { getMockCurrentWeather } from '../utils/mocks/get-mock-current-weather.js';
-import { pruneDatabase } from '../utils/database-utility/prune-database.js';
 import { assumeType } from '../utils/assume-type.js';
-import { pupulateDatabase } from '../utils/database-utility/populate-database.js';
 
 describe('integration/add-property', () => {
   let testServer: ApolloServer<BaseContext>;
 
   let database: Database;
-
-  let mockIds: string[];
 
   beforeAll(() => {
     const config: Config = { ...getConfig(), env: 'test' };
@@ -65,14 +52,6 @@ describe('integration/add-property', () => {
     vi.clearAllMocks();
   });
 
-  beforeEach(async () => {
-    mockIds = await pupulateDatabase(database);
-  });
-
-  afterEach(async () => {
-    await pruneDatabase(mockIds, testServer);
-  });
-
   it('adds property to database', async () => {
     const responseAdd = await testServer.executeOperation({
       query: `
@@ -91,28 +70,13 @@ describe('integration/add-property', () => {
 
     assert(responseAdd.body.kind === 'single');
 
-    const dataAdd = assumeType<Property>(
+    const { id } = assumeType<Property>(
       responseAdd.body.singleResult.data?.addProperty
     );
 
-    mockIds.push(dataAdd.id);
+    const addedProperty = await database.property.getProperty({ id });
+    await database.property.deleteProperty({ id });
 
-    const responseGet = await testServer.executeOperation({
-      query: `
-      query GetProperty($getPropertyId: String!) { 
-        getProperty(id: $getPropertyId) { 
-          id
-        } 
-      }`,
-      variables: { getPropertyId: dataAdd.id },
-    });
-
-    assert(responseGet.body.kind === 'single');
-
-    const dataGet = assumeType<Property>(
-      responseGet.body.singleResult.data?.getProperty
-    );
-
-    expect(dataGet).not.toBeNull();
+    expect(addedProperty).not.toBeNull();
   });
 });

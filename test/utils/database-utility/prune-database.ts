@@ -1,18 +1,9 @@
-import type { ApolloServer, BaseContext } from '@apollo/server';
+import type { Database } from '../../../src/core/adapters/database/types.js';
 
-const pruneDatabase = async (
-  mockIds: string[],
-  server: ApolloServer<BaseContext>
-) => {
+const pruneDatabase = async (mockIds: string[], database: Database) => {
   await Promise.all(
     mockIds.map(async (mockId) => {
-      await server.executeOperation({
-        query: `
-        mutation DeleteProperty($deletePropertyId: ID!) { 
-          deleteProperty(id: $deletePropertyId) 
-      }`,
-        variables: { deletePropertyId: mockId },
-      });
+      await database.property.deleteProperty({ id: mockId });
     })
   );
 };

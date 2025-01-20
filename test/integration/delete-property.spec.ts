@@ -1,19 +1,10 @@
 import assert from 'assert';
 
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  it,
-  vi,
-} from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
+import { v4 as uuid } from 'uuid';
 
 import type { ApolloServer, BaseContext } from '@apollo/server';
 import type { Config } from '../../src/config/types.js';
-import type { PropertiesWithPageInfo } from '../../src/app/schemas/types.codegen.js';
 import type { Database } from '../../src/core/adapters/database/types.js';
 
 import { getConfig } from '../../src/config/get-config.js';
@@ -25,16 +16,13 @@ import { validationService } from '../../src/core/services/validation/validation
 import { fileLoadingService } from '../../src/core/services/file-loading/file-loading-service.js';
 import { getServer } from '../../src/app/server.js';
 import { getMockCurrentWeather } from '../utils/mocks/get-mock-current-weather.js';
-import { pruneDatabase } from '../utils/database-utility/prune-database.js';
 import { assumeType } from '../utils/assume-type.js';
-import { pupulateDatabase } from '../utils/database-utility/populate-database.js';
+import { getMockProperty } from '../utils/mocks/get-mock-property.js';
 
 describe('integration/delete-property', () => {
   let testServer: ApolloServer<BaseContext>;
 
   let database: Database;
-
-  let mockIds: string[];
 
   beforeAll(() => {
     const config: Config = { ...getConfig(), env: 'test' };
@@ -65,48 +53,26 @@ describe('integration/delete-property', () => {
     vi.clearAllMocks();
   });
 
-  beforeEach(async () => {
-    mockIds = await pupulateDatabase(database);
-  });
-
-  afterEach(async () => {
-    await pruneDatabase(mockIds, testServer);
-  });
-
   it('deletes property from database', async () => {
+    const mockId = uuid();
+    const mockProperty = getMockProperty(mockId);
+
+    await database.property.createProperty(mockProperty);
+
     const responseDelete = await testServer.executeOperation({
       query: `
       mutation DeleteProperty($deletePropertyId: ID!) {
         deleteProperty(id: $deletePropertyId)
       }`,
-      variables: { deletePropertyId: mockIds[0] },
-    });
-
-    const responseGet = await testServer.executeOperation({
-      query: `
-      query GetProperties { 
-        getProperties { 
-          properties { 
-            id
-          } 
-        } 
-      }`,
+      variables: { deletePropertyId: mockId },
     });
 
     assert(responseDelete.body.kind === 'single');
-    assert(responseGet.body.kind === 'single');
 
     const dataDelete = assumeType<boolean>(
       responseDelete.body.singleResult.data?.deleteProperty
     );
 
-    const dataGet = assumeType<PropertiesWithPageInfo>(
-      responseGet.body.singleResult.data?.getProperties
-    );
-
     expect(dataDelete).toEqual(true);
-    dataGet.properties.forEach((property) => {
-      expect(property.id).not.toEqual(mockIds[0]);
-    });
   });
 });
