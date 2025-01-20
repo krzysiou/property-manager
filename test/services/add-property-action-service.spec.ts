@@ -8,7 +8,7 @@ import type { AddPropertyAction } from '../../src/core/services/action-handling/
 import type { Validate } from '../../src/core/services/validation/validation-service.js';
 
 import { addPropertyActionService } from '../../src/core/services/action-handling/property/add-property-action-service.js';
-import { getMockCurrentWeather } from '../utils/get-mock-current-weather.js';
+import { getMockCurrentWeather } from '../utils/mocks/get-mock-current-weather.js';
 import { validationService } from '../../src/core/services/validation/validation-service.js';
 import { propertySchema } from '../utils/property-schema.js';
 

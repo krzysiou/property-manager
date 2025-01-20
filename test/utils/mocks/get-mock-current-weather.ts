@@ -1,4 +1,4 @@
-import type { CurrentWeather } from '../../src/core/adapters/weather/types';
+import type { CurrentWeather } from '../../../src/core/adapters/weather/types';
 
 const getMockCurrentWeather = (): CurrentWeather => ({
   location: {

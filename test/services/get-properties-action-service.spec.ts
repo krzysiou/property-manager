@@ -5,7 +5,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest';
 import type { Database } from '../../src/core/adapters/database/types.js';
 import type { GetPropertiesAction } from '../../src/core/services/action-handling/property/get-properties-action-service.js';
 
-import { getMockProperty } from '../utils/get-mock-property.js';
+import { getMockProperty } from '../utils/mocks/get-mock-property.js';
 import { getPropertiesActionService } from '../../src/core/services/action-handling/property/get-properties-action-service.js';
 
 describe('services/get-property-action-service', () => {

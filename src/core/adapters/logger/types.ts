@@ -1,7 +1,7 @@
 type Logger = {
-  info: (message: string) => void;
-  warn: (message: string) => void;
-  error: (message: string) => void;
+  info: (payload: string | object) => void;
+  warn: (payload: string | object) => void;
+  error: (payload: string | object) => void;
 };
 
 type LoggerAdapter = () => Logger;

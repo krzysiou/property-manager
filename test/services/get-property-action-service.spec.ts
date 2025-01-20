@@ -6,7 +6,7 @@ import type { Database } from '../../src/core/adapters/database/types.js';
 import type { GetPropertyAction } from '../../src/core/services/action-handling/property/get-property-action-service.js';
 
 import { getPropertyActionService } from '../../src/core/services/action-handling/property/get-property-action-service.js';
-import { getMockProperty } from '../utils/get-mock-property.js';
+import { getMockProperty } from '../utils/mocks/get-mock-property.js';
 
 describe('services/get-property-action-service', () => {
   let getPropertyAction: GetPropertyAction;

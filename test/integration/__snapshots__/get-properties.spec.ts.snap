@@ -3,7 +3,7 @@
 exports[`integration/get-properties > returns all properties which were requested 1`] = `
 {
   "city": "New York",
-  "creationDate": Any<String>,
+  "creationDate": "2025-01-18T19:26:20.965Z",
   "id": Any<String>,
   "lat": "5",
   "lon": "-5",

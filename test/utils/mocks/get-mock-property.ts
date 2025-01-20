@@ -1,19 +1,24 @@
-import type { Property, State } from '../../src/app/schemas/types.codegen.js';
+import type {
+  Property,
+  State,
+} from '../../../src/app/schemas/types.codegen.js';
 
 const getMockProperty = (
   mockId: string = 'mock-id',
   mockCity: string = 'mock-city',
+  mockStreet: string = 'mock-street',
+  mockState: State = 'NY',
   mockZipCode: string = '12345',
-  mockState: State = 'NY'
+  mockCreationDate: string = '2025-01-18T19:26:20.965Z'
 ): Property => ({
   id: mockId,
   city: mockCity,
-  street: 'mock-street',
+  street: mockStreet,
   state: mockState,
   zipCode: mockZipCode,
   lat: '5',
   lon: '-5',
-  creationDate: '2025-01-18T19:26:20.965Z',
+  creationDate: mockCreationDate,
   weatherData: {
     observationTime: '07:24 PM',
     temperature: 22,

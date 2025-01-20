@@ -13,8 +13,8 @@ import {
 
 import type { ApolloServer, BaseContext } from '@apollo/server';
 import type { Config } from '../../src/config/types.js';
-import type { Weather } from '../../src/core/adapters/weather/types.js';
 import type { PropertiesWithPageInfo } from '../../src/app/schemas/types.codegen.js';
+import type { Database } from '../../src/core/adapters/database/types.js';
 
 import { getConfig } from '../../src/config/get-config.js';
 import { loggerAdapter } from '../../src/core/adapters/logger/fake-logger.js';
@@ -24,29 +24,30 @@ import { databaseAdapter } from '../../src/core/adapters/database/prisma/index.j
 import { validationService } from '../../src/core/services/validation/validation-service.js';
 import { fileLoadingService } from '../../src/core/services/file-loading/file-loading-service.js';
 import { getServer } from '../../src/app/server.js';
-import { getMockCurrentWeather } from '../utils/get-mock-current-weather.js';
-import { pruneDatabase } from '../utils/prune-database.js';
+import { getMockCurrentWeather } from '../utils/mocks/get-mock-current-weather.js';
+import { pruneDatabase } from '../utils/database-utility/prune-database.js';
 import { assumeType } from '../utils/assume-type.js';
-import { pupulateDatabase } from '../utils/populate-database.js';
+import { pupulateDatabase } from '../utils/database-utility/populate-database.js';
 
 describe('integration/delete-property', () => {
   let testServer: ApolloServer<BaseContext>;
 
-  let weather: Weather;
+  let database: Database;
 
-  let ids: string[];
+  let mockIds: string[];
 
   beforeAll(() => {
     const config: Config = { ...getConfig(), env: 'test' };
     const logger = loggerAdapter();
     const errorBroker = errorBrokerAdapter();
     const fetcher = fetcherAdapter({ logger, errorBroker });
-    const database = databaseAdapter({ config, logger, errorBroker });
     const validate = validationService();
     const loadFile = fileLoadingService({ logger, errorBroker });
-    weather = {
+    const weather = {
       fetchCurrentWeather: vi.fn().mockResolvedValue(getMockCurrentWeather()),
     };
+
+    database = databaseAdapter({ config, logger, errorBroker });
 
     testServer = getServer({
       config,
@@ -65,11 +66,11 @@ describe('integration/delete-property', () => {
   });
 
   beforeEach(async () => {
-    ids = await pupulateDatabase(testServer);
+    mockIds = await pupulateDatabase(database);
   });
 
   afterEach(async () => {
-    await pruneDatabase(ids, testServer);
+    await pruneDatabase(mockIds, testServer);
   });
 
   it('deletes property from database', async () => {
@@ -78,7 +79,7 @@ describe('integration/delete-property', () => {
       mutation DeleteProperty($deletePropertyId: ID!) {
         deleteProperty(id: $deletePropertyId)
       }`,
-      variables: { deletePropertyId: ids[0] },
+      variables: { deletePropertyId: mockIds[0] },
     });
 
     const responseGet = await testServer.executeOperation({
@@ -105,7 +106,7 @@ describe('integration/delete-property', () => {
 
     expect(dataDelete).toEqual(true);
     dataGet.properties.forEach((property) => {
-      expect(property.id).not.toEqual(ids[0]);
+      expect(property.id).not.toEqual(mockIds[0]);
     });
   });
 });

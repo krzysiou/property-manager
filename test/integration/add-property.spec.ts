@@ -13,8 +13,8 @@ import {
 
 import type { ApolloServer, BaseContext } from '@apollo/server';
 import type { Config } from '../../src/config/types.js';
-import type { Weather } from '../../src/core/adapters/weather/types.js';
 import type { Property } from '../../src/app/schemas/types.codegen.js';
+import type { Database } from '../../src/core/adapters/database/types.js';
 
 import { getConfig } from '../../src/config/get-config.js';
 import { loggerAdapter } from '../../src/core/adapters/logger/fake-logger.js';
@@ -24,29 +24,30 @@ import { databaseAdapter } from '../../src/core/adapters/database/prisma/index.j
 import { validationService } from '../../src/core/services/validation/validation-service.js';
 import { fileLoadingService } from '../../src/core/services/file-loading/file-loading-service.js';
 import { getServer } from '../../src/app/server.js';
-import { getMockCurrentWeather } from '../utils/get-mock-current-weather.js';
-import { pruneDatabase } from '../utils/prune-database.js';
+import { getMockCurrentWeather } from '../utils/mocks/get-mock-current-weather.js';
+import { pruneDatabase } from '../utils/database-utility/prune-database.js';
 import { assumeType } from '../utils/assume-type.js';
-import { pupulateDatabase } from '../utils/populate-database.js';
+import { pupulateDatabase } from '../utils/database-utility/populate-database.js';
 
 describe('integration/add-property', () => {
   let testServer: ApolloServer<BaseContext>;
 
-  let weather: Weather;
+  let database: Database;
 
-  let ids: string[];
+  let mockIds: string[];
 
   beforeAll(() => {
     const config: Config = { ...getConfig(), env: 'test' };
     const logger = loggerAdapter();
     const errorBroker = errorBrokerAdapter();
     const fetcher = fetcherAdapter({ logger, errorBroker });
-    const database = databaseAdapter({ config, logger, errorBroker });
     const validate = validationService();
     const loadFile = fileLoadingService({ logger, errorBroker });
-    weather = {
+    const weather = {
       fetchCurrentWeather: vi.fn().mockResolvedValue(getMockCurrentWeather()),
     };
+
+    database = databaseAdapter({ config, logger, errorBroker });
 
     testServer = getServer({
       config,
@@ -65,11 +66,11 @@ describe('integration/add-property', () => {
   });
 
   beforeEach(async () => {
-    ids = await pupulateDatabase(testServer);
+    mockIds = await pupulateDatabase(database);
   });
 
   afterEach(async () => {
-    await pruneDatabase(ids, testServer);
+    await pruneDatabase(mockIds, testServer);
   });
 
   it('adds property to database', async () => {
@@ -94,7 +95,7 @@ describe('integration/add-property', () => {
       responseAdd.body.singleResult.data?.addProperty
     );
 
-    ids.push(dataAdd.id);
+    mockIds.push(dataAdd.id);
 
     const responseGet = await testServer.executeOperation({
       query: `

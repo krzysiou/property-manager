@@ -1,9 +1,9 @@
 import type { LoggerAdapter } from './types.js';
 
 const loggerAdapter: LoggerAdapter = () => ({
-  info: (message: string) => console.info(message),
-  warn: (message: string) => console.warn(message),
-  error: (message: string) => console.error(message),
+  info: (payload) => console.info(payload),
+  warn: (payload) => console.warn(payload),
+  error: (payload) => console.error(payload),
 });
 
 export { loggerAdapter };

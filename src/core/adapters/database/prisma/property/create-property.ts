@@ -27,19 +27,17 @@ const initCreateProperty = (
     const weatherDataId = uuid();
 
     try {
-      await prismaClient.weatherData.create({
-        data: {
-          id: weatherDataId,
-          propertyId,
-          ...weatherData,
-        },
-      });
-
       await prismaClient.property.create({
         data: {
           id: propertyId,
-          weatherDataId,
           ...propertyData,
+          weatherData: {
+            create: {
+              id: weatherDataId,
+              propertyId,
+              ...weatherData,
+            }
+          }
         },
       });
     } catch (error) {
