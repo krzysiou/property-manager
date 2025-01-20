@@ -16,6 +16,7 @@ describe('services/delete-property-action-service', () => {
 
   beforeAll(() => {
     database = {
+      purge: vi.fn(),
       property: {
         getProperties: vi.fn(),
         getProperty: vi.fn(),

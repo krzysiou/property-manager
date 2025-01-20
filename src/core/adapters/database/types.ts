@@ -18,8 +18,10 @@ type GetProperties = (args: QueryGetPropertiesArgs) => Promise<Property[]>;
 type GetProperty = (args: QueryGetPropertyArgs) => Promise<Property | null>;
 type CreateProperty = (property: Property) => Promise<void>;
 type DeleteProperty = (args: MutationDeletePropertyArgs) => Promise<boolean>;
+type Purge = () => Promise<void>;
 
 type Database = {
+  purge: Purge;
   property: {
     getProperties: GetProperties;
     getProperty: GetProperty;
@@ -34,6 +36,7 @@ export type {
   DatabaseAdapter,
   Database,
   Deps,
+  Purge,
   GetProperties,
   GetProperty,
   CreateProperty,

@@ -7,6 +7,7 @@ import { initCreateProperty } from './property/create-property.js';
 import { initDeleteProperty } from './property/delete-property.js';
 import { initGetProperty } from './property/get-property.js';
 import { initGetProperties } from './property/get-properties.js';
+import { initPurge } from './purge.js';
 
 const databaseAdapter: DatabaseAdapter = (deps) => {
   const {
@@ -19,6 +20,7 @@ const databaseAdapter: DatabaseAdapter = (deps) => {
       : (new DevPrismaClient() as PrismaClient);
 
   return {
+    purge: env === 'test' ? initPurge(prismaClient) : () => new Promise((resolve)=>resolve()),
     property: {
       getProperties: initGetProperties(prismaClient, deps),
       getProperty: initGetProperty(prismaClient, deps),

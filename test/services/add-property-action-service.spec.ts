@@ -30,6 +30,7 @@ describe('services/add-property-action-service', () => {
     validate = validationService();
 
     database = {
+      purge: vi.fn(),
       property: {
         getProperties: vi.fn(),
         getProperty: vi.fn(),
