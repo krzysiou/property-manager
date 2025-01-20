@@ -30,32 +30,32 @@ Tool stack:
 > ```text
 > nvm use
 > ```
->
-> 2. Install `npm` dependencies:<br/>
+
+2. Install `npm` dependencies:<br/>
 
 > ```text
 > npm i
 > ```
->
-> 3. Copy `.env.example` and pass your `WEATHER_API_KEY`:<br/>
+
+3. Copy `.env.example` and pass your `WEATHER_API_KEY`:<br/>
 
 > ```text
 > cp .env.example .env
 > ```
->
-> 4. Create database clients by running:<br/>
+
+4. Create database clients by running:<br/>
 
 > ```text
 > npm run db:generate
 > ```
->
-> 5. Build the application:<br/>
+
+5. Build the application:<br/>
 
 > ```text
 > npm run build
 > ```
->
-> 6. Start the application:<br/>
+
+6. Start the application:<br/>
 
 > ```text
 > npm run start
@@ -80,7 +80,7 @@ Optional:
   > Environments `pro` and `dev` use production database, `test` uses testing database.
 
 - `WEATHER_API_URL` (defaults to `https://api.weatherstack.com`)<br/>
-  > Api key to Weather Stack API.url of Weather Stack Api
+  > Url of Weather Stack Api
 
 ## Additional npm scripts
 
