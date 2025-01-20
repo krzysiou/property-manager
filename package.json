@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "node --env-file=.env --import=tsx --watch ./src/index.ts",
     "codegen": "graphql-codegen --config codegen.ts",
-    "test": "vitest",
+    "test": "vitest --sequence.concurrent=false",
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "start": "node --env-file=.env ./dist/index.js",
     "db:dev-test": "npx prisma studio --schema=prisma/dev-test/schema.prisma",

@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`integration/get-property > returns property data if property exists 1`] = `
+{
+  "city": "New York",
+  "creationDate": Any<String>,
+  "id": Any<String>,
+  "lat": "5",
+  "lon": "-5",
+  "state": "AK",
+  "street": "Angel st.",
+  "weatherData": {
+    "cloudcover": 20,
+    "feelslike": 23,
+    "humidity": 65,
+    "observationTime": "07:24 PM",
+    "precip": 0,
+    "pressure": 1013,
+    "temperature": 22,
+    "uvIndex": 5,
+    "visibility": 10,
+    "weatherCode": 1,
+    "windDegree": 270,
+    "windDir": "W",
+    "windSpeed": 15,
+  },
+  "zipCode": "12345",
+}
+`;
