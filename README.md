@@ -1,6 +1,6 @@
 # property-manager
 
-This is a back-end of an application that allows management of records of properties, as GraphQL API. This Api allows querying all properties, filtering them by location, sorting them by date of creation, adding properties and deleting properties.
+This is a back-end of an application that allows management of records of properties, as GraphQL API. This Api allows querying all properties, filtering them by location, sorting them by date of creation, adding properties and deleting properties records.
 
 ## Tech Stack
 
